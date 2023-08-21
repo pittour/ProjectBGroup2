@@ -35,16 +35,14 @@
 ### 11) Conclusion
 
  
-Qu’est ce que l’architecture monolithique ? 
+### 1 ) Qu’est ce que l’architecture monolithique ? 
 
 L’architecture monolithique est considérée comme une manière traditionnelle de construire des applications. Une application monolithique est construite comme une unité unique et indivisible. Habituellement, une telle solution comprend une interface utilisateur côté client, une application côté serveur et une base de données. Elle est unifiée et toutes les fonctions sont gérées et servies en un seul endroit.
-
- 
 
 Normalement, les applications monolithiques ont une seule grande base de code et manquent de modularité. Si les développeurs veulent mettre à jour ou modifier quelque chose, ils accèdent à la même base de code. Ils apportent donc des modifications à l’ensemble de la stack en une seule fois.
 
  
-Quels sont les points forts de l’architecture monolithique? 
+### 2 )Quels sont les points forts de l’architecture monolithique? 
 
  
 Moins de problèmes transversaux
@@ -69,7 +67,7 @@ Simplicité de développement
 Tant que l’approche monolithique est une méthode standard de création d’applications, toute équipe d’ingénieurs dispose des connaissances et des capacités nécessaires pour développer une application monolithique.
 
  
-Quelles sont les faiblesses de l’architecture monolithique ? 
+### 3 ) Quelles sont les faiblesses de l’architecture monolithique ? 
 La compréhension
 
 Lorsqu’une application monolithique évolue, elle devient trop compliquée à comprendre. En outre, un système complexe de code au sein d’une application est difficile à gérer.
@@ -90,7 +88,7 @@ Les obstacles liés aux nouvelles technologies
 Il est extrêmement difficile d’appliquer une nouvelle technologie à une application monolithique, car il faut alors réécrire l’ensemble de l’application.
 
  
-Qu’est ce que l’architecture microservices ? 
+### 4 ) Qu’est ce que l’architecture microservices ? 
 
 Alors qu’une application monolithique est une seule unité unifiée, une architecture microservices la décompose en un ensemble de petites unités indépendantes. Ces unités exécutent chaque processus d’application comme un service distinct. Ainsi, tous les services possèdent leur propre logique et leur propre base de données et exécutent les fonctions spécifiques.
 
@@ -124,8 +122,8 @@ Le niveau supérieur d’agilité
 
 Toute défaillance dans une application microservices n’affecte qu’un service particulier et non l’ensemble de la solution. Ainsi, tous les changements et toutes les expériences sont mis en œuvre avec moins de risques et moins d’erreurs.
 
- 
-Quelles sont les faiblesses de l’architecture microservices ?
+  
+### 5 ) Quelles sont les faiblesses de l’architecture microservices ?
 
  
 Une complexité supplémentaire
