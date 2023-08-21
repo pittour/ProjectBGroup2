@@ -37,13 +37,11 @@ Normalement, les applications monolithiques ont une seule grande base de code et
  
 ### 2 ) Quels sont les points forts de l’architecture monolithique? 
 
- 
 Moins de problèmes transversaux
 
 Les préoccupations transversales sont celles qui affectent l’ensemble de l’application, comme la journalisation, la manipulation, la mise en cache et le contrôle des performances. 
 
 Dans une application monolithique, ce domaine de fonctionnalité ne concerne qu’une seule application, il est donc plus facile de le gérer.
-
  
 Débogage et tests plus faciles
 
@@ -90,7 +88,7 @@ Alors qu’une application monolithique est une seule unité unifiée, une archi
 Dans une architecture microservices, l’ensemble de la fonctionnalité est divisé en modules déployables indépendamment qui communiquent entre eux par le biais de méthodes définies appelées API (Application Programming Interface). Chaque service couvre sa propre portée et peut être mis à jour, déployé et mis à l’échelle indépendamment.
 
  
-### 5 ) Quels sont les points forts de l’architecture microservices ? 
+#### a ) Quels sont les points forts de l’architecture microservices ? 
 Composants indépendants
 
 Premièrement, tous les services peuvent être déployés et mis à jour indépendamment, ce qui donne plus de flexibilité. Deuxièmement, un bogue en microservices n’a d’impact que sur ce service particulier et n’influence pas l’ensemble de l’application. Enfin, il est beaucoup plus facile d’ajouter de nouvelles fonctionnalités à une application microservices qu’à une application monolithique.
@@ -116,7 +114,7 @@ Le niveau supérieur d’agilité
 Toute défaillance dans une application microservices n’affecte qu’un service particulier et non l’ensemble de la solution. Ainsi, tous les changements et toutes les expériences sont mis en œuvre avec moins de risques et moins d’erreurs.
 
   
-### 6 ) Quelles sont les faiblesses de l’architecture microservices ?
+#### b ) Quelles sont les faiblesses de l’architecture microservices ?
 
  
 Une complexité supplémentaire
