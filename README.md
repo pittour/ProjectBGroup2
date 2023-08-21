@@ -1,4 +1,4 @@
-# ProjectBGroup2
+# ProjectBGroup2 : Kevin, Hadi, Christophe
 
 
 # JOURNAL DE BORD
@@ -8,6 +8,7 @@
 
  ---------------------------------------------------------------------------------------------------------------------------------
 # JOUR 1 :
+
 
 ## I ) APPLICATION MONOLITHIQUE VERSUS APPLICATION EN MICRO-SERVICES
 
@@ -218,14 +219,19 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
     Finances
     Expérience en matière d’applications
 
-
+---------------------------------------------------------------------------------------------------------------------------------
 
 [From Monolith to Microservices: A Guide To Replatforming](https://fabric.inc/blog/commerce/from-monolith-to-microservices)
 
 
+---------------------------------------------------------------------------------------------------------------------------------
 
 ## II ) CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
 
 ## 1 ) ANALYSE DE L'ARCHITECTURE EXISTANTE
+
+Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
+
+
 
 ## 2 ) IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES
