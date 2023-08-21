@@ -9,9 +9,7 @@
  ---------------------------------------------------------------------------------------------------------------------------------
 # JOUR 1 :
 
-## I ) Architecture Application Monolithique
-       VERSUS
-       Application en micro-services
+## I ) APPLICATION MONOLITHIQUE VERSUS APPLICATION EN MICRO-SERVICES
 
 
 ### 1) Qu’est ce que l’architecture monolithique ?
