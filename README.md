@@ -225,7 +225,7 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
 
 
 
-Choix de l'application CMS à migrer
+## CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
 
 Analyse de l'architecture existante
 
