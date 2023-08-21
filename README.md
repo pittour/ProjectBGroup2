@@ -1,8 +1,8 @@
 # ProjectBGroup2
 
-JOURNAL DE BORD
+# JOURNAL DE BORD
 
-OBJECTIF: Transformer une application monolithique en micro-services
+# OBJECTIF: Transformer une application monolithique en micro-services
 
  ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 1:
