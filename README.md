@@ -27,14 +27,6 @@
 
 ### 7) Microservices et architecture monolithique : Quelle est la différence ?
 
-### 8) Architecture monolithique : Quand l’utiliser ?
-
-### 9) Quand faut-il choisir les microservices ?
-
-### 10) Quel est le meilleur choix pour les entreprises ?
-
-### 11) Conclusion
-
  
 ### 1 ) Qu’est ce que l’architecture monolithique ? 
 
@@ -178,46 +170,6 @@ Les monolithes, en revanche, ne connaissent pas de latence réseau puisque tous 
 Fiabilité
 
 Un monolithe se compose d’un seul serveur où se déroulent tous les appels et processus. En d’autres termes, si le réseau tombe en panne, c’est toute l’application qui s’arrête. En revanche, les appels réseau des microservices sont fiables à 99,9 %. Lorsqu’un des microservices tombe en panne, l’isolation des erreurs, une autre fonctionnalité des microservices, vous permet de maintenir l’application.
-
- 
-### 8 ) Architecture monolithique : Quand l’utiliser ?
-
-Les approches monolithiques sont parfois des stratégies qui ont fait leurs preuves :
-
- 
-
-    Une petite application est sur votre liste de choses à faire.
-    Votre entreprise n’a pas l’intention de se développer. Cette situation ne nécessite pas la conception et la gestion d’un système complexe. 
-    Vous êtes en phase d’idéation. Votre produit est susceptible de se développer au fil du temps si vous en êtes à la première étape du SDLC. Une itération rapide est possible avec une architecture monolithique. 
-    Un MVP est ce que vous êtes en train de construire. Les applications monolithiques sont le moyen le plus rapide de recueillir les réactions des premiers utilisateurs à ce stade.
-
- 
-### 9 ) Quand faut-il choisir les microservices ?
-
-     Suite à une augmentation significative de la demande des clients, de nombreuses entreprises ont adopté une architecture microservices. 
-    Votre objectif est de construire une solution à grande échelle.
-    L’architecture microservices nécessitant une planification minutieuse, vous disposez de beaucoup de temps.
-    À mesure que votre projet se développe, l’évolutivité devient plus critique.
-    Il est important d’utiliser des langages différents pour écrire le backend et le frontend, comme C++ pour le backend et Rails pour le frontend. 
-    Des équipes indépendantes différentes doivent travailler sur les différentes fonctions de votre solution.
-
- 
-### 10 ) Quel est le meilleur choix pour les entreprises ?
-
-Si vous voulez créer une application compliquée, en plus de disposer des connaissances nécessaires, vous devez être prêt à faire face à de nombreux types de dépenses. Par ailleurs, les architectures monolithiques fonctionnent bien pour le développement léger.
-
- 
-
-Différents types d’architecture sont privilégiés par différentes personnes. Certains pensent que vous devriez construire votre première application en tant que monolithe, puis passer aux microservices au fur et à mesure. En revanche, si votre objectif est de développer une application microservices, il n’est pas nécessaire de commencer par des monolithes.
-
- 
-
-Pour déterminer l’architecture la plus appropriée, vous devez tenir compte des facteurs suivants :
-
-    Le type d’applications que vous envisagez de développer.
-    Le calendrier du projet
-    Finances
-    Expérience en matière d’applications
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
