@@ -9,8 +9,7 @@
  ---------------------------------------------------------------------------------------------------------------------------------
 # JOUR 1 :
 
-## Architecture Application Monolithique VERSUS Application en micro-services
-
+## I ) Architecture Application Monolithique VERSUS Application en micro-services
 
 
 ### 1) Qu’est ce que l’architecture monolithique ?
@@ -225,8 +224,8 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
 
 
 
-## CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
+## II ) CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
 
-Analyse de l'architecture existante
+## 1 ) ANALYSE DE L'ARCHITECTURE EXISTANTE
 
-Identification des différentes fonctionnalités et modules potentiellement migrable
+## 2 ) IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES
