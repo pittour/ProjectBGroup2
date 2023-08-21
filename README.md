@@ -42,7 +42,7 @@ L’architecture monolithique est considérée comme une manière traditionnelle
 Normalement, les applications monolithiques ont une seule grande base de code et manquent de modularité. Si les développeurs veulent mettre à jour ou modifier quelque chose, ils accèdent à la même base de code. Ils apportent donc des modifications à l’ensemble de la stack en une seule fois.
 
  
-### 2 )Quels sont les points forts de l’architecture monolithique? 
+### 2 ) Quels sont les points forts de l’architecture monolithique? 
 
  
 Moins de problèmes transversaux
@@ -97,7 +97,7 @@ Alors qu’une application monolithique est une seule unité unifiée, une archi
 Dans une architecture microservices, l’ensemble de la fonctionnalité est divisé en modules déployables indépendamment qui communiquent entre eux par le biais de méthodes définies appelées API (Application Programming Interface). Chaque service couvre sa propre portée et peut être mis à jour, déployé et mis à l’échelle indépendamment.
 
  
-Quels sont les points forts de l’architecture microservices ? 
+### 5 ) Quels sont les points forts de l’architecture microservices ? 
 Composants indépendants
 
 Premièrement, tous les services peuvent être déployés et mis à jour indépendamment, ce qui donne plus de flexibilité. Deuxièmement, un bogue en microservices n’a d’impact que sur ce service particulier et n’influence pas l’ensemble de l’application. Enfin, il est beaucoup plus facile d’ajouter de nouvelles fonctionnalités à une application microservices qu’à une application monolithique.
@@ -123,7 +123,7 @@ Le niveau supérieur d’agilité
 Toute défaillance dans une application microservices n’affecte qu’un service particulier et non l’ensemble de la solution. Ainsi, tous les changements et toutes les expériences sont mis en œuvre avec moins de risques et moins d’erreurs.
 
   
-### 5 ) Quelles sont les faiblesses de l’architecture microservices ?
+### 6 ) Quelles sont les faiblesses de l’architecture microservices ?
 
  
 Une complexité supplémentaire
@@ -146,7 +146,7 @@ Test
 Une multitude de composants déployables indépendamment rend le test d’une solution basée sur les microservices beaucoup plus difficile.
 
  
-Microservices vs architecture monolithique : Quelle est la différence ?
+### 7 ) Microservices vs architecture monolithique : Quelle est la différence ?
 
 Nous analyserons la complexité, la fiabilité, la latence et l’évolutivité de l’architecture monolithique par rapport aux microservices afin de mieux comprendre les différences.
 
@@ -179,7 +179,7 @@ Fiabilité
 Un monolithe se compose d’un seul serveur où se déroulent tous les appels et processus. En d’autres termes, si le réseau tombe en panne, c’est toute l’application qui s’arrête. En revanche, les appels réseau des microservices sont fiables à 99,9 %. Lorsqu’un des microservices tombe en panne, l’isolation des erreurs, une autre fonctionnalité des microservices, vous permet de maintenir l’application.
 
  
-Architecture monolithique : Quand l’utiliser ?
+### 8 ) Architecture monolithique : Quand l’utiliser ?
 
 Les approches monolithiques sont parfois des stratégies qui ont fait leurs preuves :
 
@@ -191,11 +191,9 @@ Les approches monolithiques sont parfois des stratégies qui ont fait leurs preu
     Un MVP est ce que vous êtes en train de construire. Les applications monolithiques sont le moyen le plus rapide de recueillir les réactions des premiers utilisateurs à ce stade.
 
  
-Quand faut-il choisir les microservices ?
+### 9 ) Quand faut-il choisir les microservices ?
 
- 
-
-    Suite à une augmentation significative de la demande des clients, de nombreuses entreprises ont adopté une architecture microservices. 
+     Suite à une augmentation significative de la demande des clients, de nombreuses entreprises ont adopté une architecture microservices. 
     Votre objectif est de construire une solution à grande échelle.
     L’architecture microservices nécessitant une planification minutieuse, vous disposez de beaucoup de temps.
     À mesure que votre projet se développe, l’évolutivité devient plus critique.
@@ -203,7 +201,7 @@ Quand faut-il choisir les microservices ?
     Des équipes indépendantes différentes doivent travailler sur les différentes fonctions de votre solution.
 
  
-Quel est le meilleur choix pour les entreprises ?
+### 10 ) Quel est le meilleur choix pour les entreprises ?
 
 Si vous voulez créer une application compliquée, en plus de disposer des connaissances nécessaires, vous devez être prêt à faire face à de nombreux types de dépenses. Par ailleurs, les architectures monolithiques fonctionnent bien pour le développement léger.
 
@@ -219,6 +217,8 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
     Le calendrier du projet
     Finances
     Expérience en matière d’applications
+
+
 
 [From Monolith to Microservices: A Guide To Replatforming](https://fabric.inc/blog/commerce/from-monolith-to-microservices)
 
