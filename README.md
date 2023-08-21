@@ -7,31 +7,31 @@ OBJECTIF: Transformer une application monolithique en micro-services
  ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 1:
 
-# Architecture Application Monolithique VERSUS Application en micro-services
+## Architecture Application Monolithique VERSUS Application en micro-services
 
 
 
-## 1) Qu’est ce que l’architecture monolithique ?
+### 1) Qu’est ce que l’architecture monolithique ?
 
-## 2) Quels sont les points forts de l’architecture monolithique?
+### 2) Quels sont les points forts de l’architecture monolithique?
 
-## 3) Quelles sont les faiblesses de l’architecture monolithique ?
+### 3) Quelles sont les faiblesses de l’architecture monolithique ?
 
-## 4) Qu’est ce que l’architecture de microservices ? 
+###4) Qu’est ce que l’architecture de microservices ? 
 
-## 5) Quels sont les points forts de l’architecture de microservices ? 
+### 5) Quels sont les points forts de l’architecture de microservices ? 
 
-## 6) Quelles sont les faiblesses de l’architecture de microservices ? 
+### 6) Quelles sont les faiblesses de l’architecture de microservices ? 
 
-## 7) Microservices et architecture monolithique : Quelle est la différence ?
+### 7) Microservices et architecture monolithique : Quelle est la différence ?
 
-## 8) Architecture monolithique : Quand l’utiliser ?
+### 8) Architecture monolithique : Quand l’utiliser ?
 
-## 9) Quand faut-il choisir les microservices ?
+### 9) Quand faut-il choisir les microservices ?
 
-## 10) Quel est le meilleur choix pour les entreprises ?
+### 10) Quel est le meilleur choix pour les entreprises ?
 
-## 11) Conclusion
+### 11) Conclusion
 
  
 Qu’est ce que l’architecture monolithique ? 
