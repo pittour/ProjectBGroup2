@@ -221,6 +221,8 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
     Finances
     Expérience en matière d’applications
 
+[From Monolith to Microservices: A Guide To Replatforming](https://fabric.inc/blog/commerce/from-monolith-to-microservices)
+
 
 
 Choix de l'application CMS à migrer
