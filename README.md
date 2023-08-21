@@ -228,4 +228,13 @@ Pour déterminer l’architecture la plus appropriée, vous devez tenir compte d
 
 ## 1 ) ANALYSE DE L'ARCHITECTURE EXISTANTE
 
-## 2 ) IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES
+## 2 ) IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES :
+### 1- Gestion d'utilisateurs et d'authentification : 
+      Créer un micro-service pour gérer l'authentification, l'inscription des    
+      utilisateurs et la gestion des profils. Cela pourrait permettre aux utilisateurs de s'authentifier de manière centralisée, 
+      même si d'autres parties de l'application sont déployées en micro-services distincts.
+### 2- Notifications :
+       Créer un micro-service pour gérer l'envoi de notifications par e-mail, SMS ou d'autres canaux.
+### 3- Analyse et suivi :
+       Créer un micro-service pour collecter et analyser les données de suivi et les statistiques d'utilisation.
+
