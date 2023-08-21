@@ -139,8 +139,7 @@ Une multitude de composants déployables indépendamment rend le test d’une so
  
 ### 7 ) Microservices vs architecture monolithique : Quelle est la différence ?
 
-Nous analyserons la complexité, la fiabilité, la latence et l’évolutivité de l’architecture monolithique par rapport aux microservices afin de mieux comprendre les différences.
-
+Analyse de la complexité, la fiabilité, la latence et l’évolutivité de l’architecture monolithique par rapport aux microservices afin de mieux comprendre les différences.
  
 Évolutivité
 
@@ -150,8 +149,6 @@ Les microservices ne sont pas les seuls à être évolutifs. Un monolithe peut �
 Complexité
 
 Les microservices impliquent une pléthore de codes sources, de frameworks et de technologies en fonction de la complexité de votre application. Plusieurs serveurs peuvent héberger les services, qui communiquent entre eux via des API.
-
- 
 
 L’architecture de ce type nécessite une méthodologie de développement différente et exige un niveau plus élevé de coordination, de compétences et de compréhension de l’architecture globale.
 
