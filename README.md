@@ -6,8 +6,7 @@
 
 # OBJECTIF: Transformer une application monolithique en micro-services
 
- ---------------------------------------------------------------------------------------------------------------------------------
-JOUR 1:
+ ---------------------------------------------------------------------------------------------------------------------------------# JOUR 1:
 
 ## Architecture Application Monolithique VERSUS Application en micro-services
 
