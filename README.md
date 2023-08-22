@@ -215,9 +215,14 @@ services:
 ---------------------------------------------------------------------------------------------------------------------------------
 
 # JOUR 2
-MISE EN PLACE D'UN MICRO SERVICE : Ajout d'un commentaire
+MISE EN PLACE D'UN MICRO SERVICE : Ajouter d'un article
 
-Extension Services Web: Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
+Extension Services Web: Install
+
+Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
+
+http://localhost:8080/jsonapi
+http://localhost:8080/jsonapi/node/article
 
 Installation de POSTMAN pour tester l'API
 
