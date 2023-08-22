@@ -211,3 +211,14 @@ services:
        Créer un micro-service pour gérer l'envoi de notifications par e-mail, SMS ou d'autres canaux.
 ### 3- Analyse et suivi :
        Créer un micro-service pour collecter et analyser les données de suivi et les statistiques d'utilisation.
+       
+---------------------------------------------------------------------------------------------------------------------------------
+
+# JOUR 2
+MISE EN PLACE D'UN MICRO SERVICE : Ajout d'un commentaire
+
+Extension Services Web: Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
+
+Installation de POSTMAN pour tester l'API
+
+
