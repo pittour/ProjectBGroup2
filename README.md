@@ -222,11 +222,16 @@ Extension Services Web: Install
 Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
 
 http://localhost:8080/jsonapi
+
 http://localhost:8080/jsonapi/node/article
 
 Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
 
+Setup Access Token / OAuth Based Authentication (https://www.drupal.org/docs/contributed-modules/api-authentication/setup-access-token-oauth-based-authentication)
+
 Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/routing-system-overview)
+
+
 
 Installation de POSTMAN pour tester l'API
 
