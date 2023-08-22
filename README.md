@@ -217,7 +217,7 @@ services:
 # JOUR 2
 MISE EN PLACE D'UN MICRO SERVICE : Ajouter d'un article
 
-Extension Services Web: Install
+## 1 ) Extension Services Web: Install
 
 Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
 
@@ -225,14 +225,20 @@ http://localhost:8080/jsonapi
 
 http://localhost:8080/jsonapi/node/article
 
-Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
+## 2 ) Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
 
 Setup Access Token / OAuth Based Authentication (https://www.drupal.org/docs/contributed-modules/api-authentication/setup-access-token-oauth-based-authentication)
+
+Installation du module : Drupal REST & JSON API Authentication
+
+Drupal REST & JSON API Authentication module restricts and secures unauthorized access to your Drupal site APIs using different authentication methods including Basic Authentication , API Key Authentication , JWT Authentication , OAuth Authentication , External / Third-Party Provider Authentication, etc
+
+A REST API defines a set of functions in which developers can perform requests such as GET, POST, PUT, PATCH, DELETE, and receive responses via HTTP protocol. For example, when a client application calls a Drupal API to fetch a specific user (the resource), the API will return the state of that user, including their name, email, user id, etc.
 
 Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/routing-system-overview)
 
 
 
-Installation de POSTMAN pour tester l'API
+## 3 ) Installation de POSTMAN pour tester l'API
 
 
