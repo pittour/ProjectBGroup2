@@ -175,7 +175,7 @@ Un monolithe se compose d’un seul serveur où se déroulent tous les appels et
 
 ## II ) CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
 
-
+<img src="/drupal/images/drupal-architecture/drupal-architecture.jpg">
 
 Users − These are the users on the Drupal community. The user sends a request to a server using Drupal CMS and web browsers, search engines, etc. acts like clients.
 
