@@ -188,7 +188,7 @@ Database − Database stores the user information, content and other required da
 ---------------------------------------------------------------------------------------------------------------------------------
 # JOUR 2
 
-## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
+## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 2 + 3)
 
 CONTENEURISATION AVEC DOCKER COMPOSE :
  - UN CONTENEUR MYSQL
@@ -245,7 +245,7 @@ Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/
 
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 3:
-### FIN DE L'AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
+### FIN DE L'AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 2 + 3)
 
 
 ### CREATION DU CODE PYTHON SOUS FLASK DU MICRO-SERVICE permettant d'ajouter un article au site.
@@ -254,5 +254,11 @@ JOUR 3:
 ### UTILISATION DE THUNDERBIRD SOUS VSCODE POUR TESTER L'API DU MICROSERVICE (GET, POST)
 
 
+---------------------------------------------------------------------------------------------------------------------------------
+JOUR 4:
+
+### PHASE DE TEST MICRO_SERVICE.PY AVEC PYTEST
+
+### MISE EN PLACE D'UN CONTENEUR HAPROXY (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL)
 
 
