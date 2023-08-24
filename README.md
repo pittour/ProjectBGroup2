@@ -10,32 +10,24 @@
 # JOUR 1 :
 
 
-## I ) APPLICATION MONOLITHIQUE VERSUS APPLICATION EN MICRO-SERVICES
+# APPLICATION MONOLITHIQUE VERSUS APPLICATION EN MICRO-SERVICES
 
 
-### 1) Qu’est ce que l’architecture monolithique ?
+### 1) Présentation de l’architecture monolithique ? Points forts / Points faibles
 
-### 2) Quels sont les points forts de l’architecture monolithique?
+### 2) Présentation de l’architecture de microservices ? Points forts / Points faibles
 
-### 3) Quelles sont les faiblesses de l’architecture monolithique ?
-
-### 4) Qu’est ce que l’architecture de microservices ? 
-
-### 5) Quels sont les points forts de l’architecture de microservices ? 
-
-### 6) Quelles sont les faiblesses de l’architecture de microservices ? 
-
-### 7) Microservices et architecture monolithique : Quelle est la différence ?
+### 3) Microservices et architecture monolithique : DIFFERENCES ?
 
  
-### 1 ) Qu’est ce que l’architecture monolithique ? 
+## 1 ) Présentation de l’architecture monolithique ? 
 
 L’architecture monolithique est considérée comme une manière traditionnelle de construire des applications. Une application monolithique est construite comme une unité unique et indivisible. Habituellement, une telle solution comprend une interface utilisateur côté client, une application côté serveur et une base de données. Elle est unifiée et toutes les fonctions sont gérées et servies en un seul endroit.
 
 Normalement, les applications monolithiques ont une seule grande base de code et manquent de modularité. Si les développeurs veulent mettre à jour ou modifier quelque chose, ils accèdent à la même base de code. Ils apportent donc des modifications à l’ensemble de la stack en une seule fois.
 
  
-### 2 ) Quels sont les points forts de l’architecture monolithique? 
+### POINTS FORTS DE L'ARCHITECTURE MONOLITHIQUE : 
 
 Moins de problèmes transversaux
 
@@ -58,7 +50,8 @@ Simplicité de développement
 Tant que l’approche monolithique est une méthode standard de création d’applications, toute équipe d’ingénieurs dispose des connaissances et des capacités nécessaires pour développer une application monolithique.
 
  
-### 3 ) Quelles sont les faiblesses de l’architecture monolithique ? 
+### POINTS FAIBLES DE L'ARCHITECTURE MONOLITHIQUE
+
 La compréhension
 
 Lorsqu’une application monolithique évolue, elle devient trop compliquée à comprendre. En outre, un système complexe de code au sein d’une application est difficile à gérer.
@@ -79,7 +72,7 @@ Les obstacles liés aux nouvelles technologies
 Il est extrêmement difficile d’appliquer une nouvelle technologie à une application monolithique, car il faut alors réécrire l’ensemble de l’application.
 
  
-### 4 ) Qu’est ce que l’architecture microservices ? 
+## 2 ) PRESENTATION DE L'ARCHITECTURE MICROSERVICES
 
 Alors qu’une application monolithique est une seule unité unifiée, une architecture microservices la décompose en un ensemble de petites unités indépendantes. Ces unités exécutent chaque processus d’application comme un service distinct. Ainsi, tous les services possèdent leur propre logique et leur propre base de données et exécutent les fonctions spécifiques.
 
@@ -88,7 +81,8 @@ Alors qu’une application monolithique est une seule unité unifiée, une archi
 Dans une architecture microservices, l’ensemble de la fonctionnalité est divisé en modules déployables indépendamment qui communiquent entre eux par le biais de méthodes définies appelées API (Application Programming Interface). Chaque service couvre sa propre portée et peut être mis à jour, déployé et mis à l’échelle indépendamment.
 
  
-#### a ) Quels sont les points forts de l’architecture microservices ? 
+#### a ) POINTS FORTS DE L'ARCHITECTURE MICROSERVICES :
+
 Composants indépendants
 
 Premièrement, tous les services peuvent être déployés et mis à jour indépendamment, ce qui donne plus de flexibilité. Deuxièmement, un bogue en microservices n’a d’impact que sur ce service particulier et n’influence pas l’ensemble de l’application. Enfin, il est beaucoup plus facile d’ajouter de nouvelles fonctionnalités à une application microservices qu’à une application monolithique.
@@ -114,7 +108,7 @@ Le niveau supérieur d’agilité
 Toute défaillance dans une application microservices n’affecte qu’un service particulier et non l’ensemble de la solution. Ainsi, tous les changements et toutes les expériences sont mis en œuvre avec moins de risques et moins d’erreurs.
 
   
-#### b ) Quelles sont les faiblesses de l’architecture microservices ?
+### POINTS FAIBLES DE L'ARCHITECTURE MICROSERVICES :
 
  
 Une complexité supplémentaire
@@ -137,7 +131,7 @@ Test
 Une multitude de composants déployables indépendamment rend le test d’une solution basée sur les microservices beaucoup plus difficile.
 
  
-### 7 ) Microservices vs architecture monolithique : Quelle est la différence ?
+### 7 ) DIFFERENCES ENTRE ARCHITECTURE MICROSERVICES ET MONOLITHIQUES
 
 Analyse de la complexité, la fiabilité, la latence et l’évolutivité de l’architecture monolithique par rapport aux microservices afin de mieux comprendre les différences.
  
@@ -177,6 +171,8 @@ Un monolithe se compose d’un seul serveur où se déroulent tous les appels et
 
 ![My Image](drupal-architecture.jpg)
 
+### PRESENTATION ET ANALYSE DE L'ARCHITECTURE:
+
 Users − These are the users on the Drupal community. The user sends a request to a server using Drupal CMS and web browsers, search engines, etc. acts like clients.
 
 Administrator − Administrator can provide access permission to authorized users and will be able to block unauthorized access. Administrative account will be having all privileges for managing content and administering the site.
@@ -189,7 +185,9 @@ Web Server − Web server is a server where the user interacts and processes req
 
 Database − Database stores the user information, content and other required data of the site. It is used to store the administrative information to manage the Drupal site. Drupal uses the database to extract the data and enables to store, modify and update the database.
 
-## 1 ) ANALYSE DE L'ARCHITECTURE EXISTANTE
+CONTENEURISATION AVEC DOCKER COMPOSE :
+ - UN CONTENEUR MYSQL
+ - UN CONTENEUR DRUPAL
 
 Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
 
@@ -214,9 +212,12 @@ services:
     depends_on:
       - mysql
 
+---------------------------------------------------------------------------------------------------------------------------------
+# JOUR 2
 
+## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
 
-## 2 ) IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES :
+##  IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES :
 ### 1- Gestion d'utilisateurs et d'authentification :
       Créer un micro-service pour gérer l'authentification, l'inscription des utilisateurs et la gestion des profils. Cela 
       pourrait permettre aux utilisateurs de s'authentifier de manière centralisée, même si d'autres parties de l'application 
@@ -226,11 +227,8 @@ services:
 ### 3- Analyse et suivi :
        Créer un micro-service pour collecter et analyser les données de suivi et les statistiques d'utilisation.
        
----------------------------------------------------------------------------------------------------------------------------------
 
-# JOUR 2
 
-## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2)
 
 ## MISE EN PLACE D'UN MICRO SERVICE : AJOUTER UN ARTICLE SUR LE SITE EN DEMO
 
@@ -267,7 +265,7 @@ Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/
 
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 3:
-### FIN AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
+### FIN DE L'AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
 
 
 ### CREATION DU CODE PYTHON SOUS FLASK DU MICRO-SERVICE permettant d'ajouter un article au site.
