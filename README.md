@@ -229,7 +229,10 @@ services:
 ---------------------------------------------------------------------------------------------------------------------------------
 
 # JOUR 2
-MISE EN PLACE D'UN MICRO SERVICE POUR AJOUTER UN ARTICLE SUR LE SITE EN DEMO
+
+## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2)
+
+## MISE EN PLACE D'UN MICRO SERVICE : AJOUTER UN ARTICLE SUR LE SITE EN DEMO
 
 ### 1 ) Extension Services Web: Install
 
@@ -239,7 +242,7 @@ http://localhost:8080/jsonapi
 
 http://localhost:8080/jsonapi/node/article
 
-### 2 ) Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
+### Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
 
 Setup Access Token / OAuth Based Authentication (https://www.drupal.org/docs/contributed-modules/api-authentication/setup-access-token-oauth-based-authentication)
 
@@ -256,12 +259,13 @@ Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/
 
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 3:
+### FIN AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
 
 
-### 3 ) CREATION DU CODE PYTHON SOUS FLASK DU MICRO-SERVICE permettant d'ajouter un article au site.
+### CREATION DU CODE PYTHON SOUS FLASK DU MICRO-SERVICE permettant d'ajouter un article au site.
 
 
-### 4 ) UTILISATION DE THUNDERBIRD SOUS VSCODE POUR TESTER L'API DU MICROSERVICE (GET, POST)
+### UTILISATION DE THUNDERBIRD SOUS VSCODE POUR TESTER L'API DU MICROSERVICE (GET, POST)
 
 
 
