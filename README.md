@@ -245,6 +245,7 @@ Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/
 
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 3:
+
 ### FIN DE L'AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 2 + 3)
 
 
@@ -257,7 +258,33 @@ JOUR 3:
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 4:
 
-### PHASE DE TESTS MICRO_SERVICE.PY AVEC PYTEST
+### FEUILLE DE ROUTE POUR LE DEVELOPPEMENT DU MICRO SERVICE :
+
+1. Configuration de l'environnement :
+Installation de Flask, SQLAlchemy et autres dépendances nécessaires.
+Configuration de la base de données pour le micro-service.
+2. Connexion au monolithe PrestaShop :
+Utilisation de la bibliothèque requests pour intégrer l'API REST de DRUPAL.
+3. Définition du modèle de données :
+Modélisation de la commande dans SQLAlchemy.
+4. Implémentation des routes :
+Création de routes pour l'ajout au panier, la vérification des disponibilités, et
+d'autres actions nécessaires.
+5. Gestion des erreurs :
+Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, les
+timeouts, etc.
+6. Optimisation et sécurité :
+Mise en cache des réponses fréquemment utilisées.
+Gestion des taux d'appels à l'API pour respecter les limites imposées.
+
+
+### DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC PYTEST
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
 
 ### MISE EN PLACE D'UN CONTENEUR HAPROXY (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL)
 
