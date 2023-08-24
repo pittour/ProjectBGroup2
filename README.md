@@ -192,6 +192,10 @@ CONTENEURISATION AVEC DOCKER COMPOSE :
 Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
 
 Fichier Docker Compose :
+
+
+![My Image](Docker compose drupal + msql.png)
+ 
 ---
 services:
   mysql:
