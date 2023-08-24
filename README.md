@@ -191,29 +191,8 @@ CONTENEURISATION AVEC DOCKER COMPOSE :
 
 Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
 
-Fichier Docker Compose :
+Fichier Docker Compose : Docker compose drupal + msql.png
 
-![alt text](https://github.com/Sparkly74/ProjectBGroup2/blob/main/Docker compose drupal + msql.png?raw=true)
- 
----
-services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'drupal'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
-
-  drupal:
-    image: drupal:latest
-    container_name: drupal
-    ports:
-    - "8080:80"
-    depends_on:
-      - mysql
 
 ---------------------------------------------------------------------------------------------------------------------------------
 # JOUR 2
