@@ -185,6 +185,11 @@ Web Server − Web server is a server where the user interacts and processes req
 
 Database − Database stores the user information, content and other required data of the site. It is used to store the administrative information to manage the Drupal site. Drupal uses the database to extract the data and enables to store, modify and update the database.
 
+---------------------------------------------------------------------------------------------------------------------------------
+# JOUR 2
+
+## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
+
 CONTENEURISATION AVEC DOCKER COMPOSE :
  - UN CONTENEUR MYSQL
  - UN CONTENEUR DRUPAL
@@ -193,13 +198,8 @@ Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
 
 Fichier Docker Compose : Docker compose drupal + msql.png
 
-
----------------------------------------------------------------------------------------------------------------------------------
-# JOUR 2
-
-## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 1 + 2 + 3)
-
 ##  IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES :
+
 ### 1- Gestion d'utilisateurs et d'authentification :
       Créer un micro-service pour gérer l'authentification, l'inscription des utilisateurs et la gestion des profils. Cela 
       pourrait permettre aux utilisateurs de s'authentifier de manière centralisée, même si d'autres parties de l'application 
@@ -209,8 +209,6 @@ Fichier Docker Compose : Docker compose drupal + msql.png
 ### 3- Analyse et suivi :
        Créer un micro-service pour collecter et analyser les données de suivi et les statistiques d'utilisation.
        
-
-
 
 ## MISE EN PLACE D'UN MICRO SERVICE : AJOUTER UN ARTICLE SUR LE SITE EN DEMO
 
