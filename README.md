@@ -193,8 +193,7 @@ Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
 
 Fichier Docker Compose :
 
-
-![My Image](Docker compose drupal + msql.png)
+![alt text](https://github.com/Sparkly74/ProjectBGroup2/blob/main/Docker compose drupal + msql.png?raw=true)
  
 ---
 services:
