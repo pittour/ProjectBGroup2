@@ -234,13 +234,21 @@ services:
 
 ## MISE EN PLACE D'UN MICRO SERVICE : AJOUTER UN ARTICLE SUR LE SITE EN DEMO
 
-### 1 ) Extension Services Web: Install
-
-Installation du module JSON:API pour exposer les entités en tant qu'API web JSON:API-specification-compliant
+### Extension Services Web: Installation du module JSON:API  pour exposer les entités en tant qu'API web JSON:API-specification-compliant
 
 http://localhost:8080/jsonapi
 
 http://localhost:8080/jsonapi/node/article
+
+### Extension Services Web: Installation du module HTTP Basic Authentification:
+Installé
+	Nom
+	Description
+	HTTP Basic Authentication 	
+Provides an HTTP Basic authentication provider.
+Nom système : basic_auth
+Version : 10.1.2
+ 
 
 ### Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
 
