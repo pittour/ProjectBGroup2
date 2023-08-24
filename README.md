@@ -257,7 +257,7 @@ JOUR 3:
 ---------------------------------------------------------------------------------------------------------------------------------
 JOUR 4:
 
-### PHASE DE TEST MICRO_SERVICE.PY AVEC PYTEST
+### PHASE DE TESTS MICRO_SERVICE.PY AVEC PYTEST
 
 ### MISE EN PLACE D'UN CONTENEUR HAPROXY (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL)
 
