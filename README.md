@@ -292,17 +292,24 @@ timeouts, etc.
 ---------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 5:
 
-## OPTIMISATION
+## OPTIMISATION DU MICRO-SERVICE
 
 ### 1) Mise en cache des réponses fréquemment utilisées avec REDIS
 
 ### 2 ) Gestion des taux d'appels à l'API pour respecter les limites imposées avec Flask-Limiter
 
+## SECURISATION DU MICRO-SERVICE
+
+### 1 ) Installation de Python-Decouple
+Pour sécuriser la clé API de PrestaShop : Plutôt que de la stocker dans config.py ,
+utilisez des variables d'environnement. Vous pouvez utiliser python-decouple pour
+aider à gérer cela.
+
 ### Création Docker File sur une base de déploiement Gunicorn pour notre Micro-Service
 
 ###  ETUDE MISE EN PLACE D'UN CONTENEUR NGINX (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL):
 
-### Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
+Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
 
 
 
