@@ -12,6 +12,6 @@ HEADERS = {
     "Accept": "application/vnd.api+json",
 }
 
-CACHE_TYPE = 'redis'
-CACHE_DEFAULT_TIMEOUT = 300 # 5 minutes, ajustez selon vos besoins
-CACHE_REDIS_URL = 'redis://localhost:6379/0'
+# CACHE_TYPE = 'redis'
+# CACHE_DEFAULT_TIMEOUT = 300 # 5 minutes, ajustez selon vos besoins
+# CACHE_REDIS_URL = 'redis://localhost:6379/0'

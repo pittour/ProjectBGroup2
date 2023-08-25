@@ -1,9 +1,11 @@
 from flask import request, jsonify
-from app import app, db
+from app import app, db, limiter, cache
 from app.models import Article
 from drupal import fetch_articles, create_article
 
 @app.route('/get_articles', methods=['GET'])
+@cache.cached()
+@limiter.limit("5 per hour")
 def get_articles():
     product_data = fetch_articles()
     if not product_data:
@@ -12,6 +14,7 @@ def get_articles():
     return product_data
 
 @app.route('/add_article', methods=['POST'])
+@limiter.limit("3 per hour")
 def add_article():
     title = request.json.get('title')
     content = request.json.get('content')
