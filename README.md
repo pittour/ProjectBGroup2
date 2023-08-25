@@ -312,6 +312,9 @@ aider à gérer cela.
 Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
 
 
+----------------------------------------------------------------------------------------------------------------------------------------
+ EN ATTENTE : TEST ADDITIONNEL Utiliser pyflakes 3.1.0 (pip install pyflakes)
+
 
 
 
