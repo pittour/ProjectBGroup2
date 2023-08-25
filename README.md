@@ -278,14 +278,33 @@ Mise en cache des réponses fréquemment utilisées.
 Gestion des taux d'appels à l'API pour respecter les limites imposées.
 
 
-### DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC PYTEST
+## DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC PYTEST
 
+## DEFINITION DU MODELE DE DONNEES :
+Modélisation de la commande dans SQLAlchemy.
+
+## 5. GESTION DES ERREURS (EN COURS)
+Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, les
+timeouts, etc.
 
 
 
 ---------------------------------------------------------------------------------------------------------------------------------
+## JOUR 5:
+
+## OPTIMISATION
+
+### 1) Mise en cache des réponses fréquemment utilisées avec REDIS
+
+### 2 ) Gestion des taux d'appels à l'API pour respecter les limites imposées avec Flask-Limiter
+
+### Création Docker File sur une base de déploiement Gunicorn pour notre Micro-Service
+
+###  ETUDE MISE EN PLACE D'UN CONTENEUR NGINX (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL):
+
+### Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
 
 
-### MISE EN PLACE D'UN CONTENEUR HAPROXY (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL)
+
 
 
