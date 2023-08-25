@@ -307,7 +307,7 @@ aider à gérer cela.
 
 ### Création Docker File sur une base de déploiement Gunicorn pour notre Micro-Service
 
-###  ETUDE MISE EN PLACE D'UN CONTENEUR NGINX (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL):
+### ETUDE MISE EN PLACE D'UN CONTENEUR NGINX (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL):
 
 Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
 
