@@ -315,25 +315,25 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 ----------------------------------------------------------------------------------------------------------------------------------------
  ## JOUR 6:
 
-INSTALLATION DU CERTIFICAT SSL SUR LE CONTENEUR DRUPAL
+### INSTALLATION DU CERTIFICAT SSL SUR LE CONTENEUR DRUPAL
   
- MISE EN PLACE DE LA BASE DE DONNEES AVEC SQL ALCHEMY
+ ### MISE EN PLACE DE LA BASE DE DONNEES AVEC SQL ALCHEMY
 
- TRACKING DE L'ID DES REQUETES DANS DRUPAL
+ ### TRACKING DE L'ID DES REQUETES DANS DRUPAL
 
  ----------------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 7  : OBJECTIFS
 
-FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE
+### FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE
 
-DOCKERIRSER LE MICROSERVICE
+### DOCKERIRSER LE MICROSERVICE
 
-INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
+### INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 8 :m
 
-AUTOMATISATION VIA JENKINS CI/CD
+### PROJECTION AUTOMATISATION VIA JENKINS CI/CD
 
  
  
