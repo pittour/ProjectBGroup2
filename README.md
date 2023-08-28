@@ -301,7 +301,7 @@ timeouts, etc.
 ## SECURISATION DU MICRO-SERVICE
 
 ### 1 ) Installation de Python-Decouple
-Pour sécuriser la clé API de PrestaShop : Plutôt que de la stocker dans config.py ,
+Pour sécuriser la clé API de DRUPAL  : Plutôt que de la stocker dans config.py ,
 utilisez des variables d'environnement. Vous pouvez utiliser python-decouple pour
 aider à gérer cela.
 
@@ -313,7 +313,40 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+ ## JOUR 6:
+
+INSTALLATION DU CERTIFICAT SSL SUR LE CONTENEUR DRUPAL
+  
+ MISE EN PLACE DE LA BASE DE DONNEES AVEC SQL ALCHEMY
+
+ TRACKING DE L'ID DES REQUETES DANS DRUPAL
+
+ ----------------------------------------------------------------------------------------------------------------------------------------
+## JOUR 7  : OBJECTIFS
+
+FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE
+
+DOCKERIRSER LE MICROSERVICE
+
+INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
+
+----------------------------------------------------------------------------------------------------------------------------------------
+## JOUR 8 :m
+
+AUTOMATISATION VIA JENKINS CI/CD
+
+ 
+ 
+ 
+ 
  EN ATTENTE : TEST ADDITIONNEL Utiliser pyflakes 3.1.0 (pip install pyflakes)
+
+
+ 
+
+
+
+ 
 
 
 
