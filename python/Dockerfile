@@ -4,12 +4,19 @@ RUN apt-get update && \
     apt-get clean && \
     apt-get install -y nginx
 
+WORKDIR /etc/ssl
+RUN openssl genrsa -out kprivkpub.key 2048
+RUN openssl req -x509 -nodes -days 365 -key kprivkpub.key -out /etc/ssl/certs/nginx-selfsigned.crt  -subj /C="FR"/ST="Rhone"/L="Lyon"/O="My Organization"/OU="My Unit"/CN="mydomain.com"/emailAddress="admin@mydomain.com"
+
 WORKDIR /drupal-brutal
 
 COPY . .
 
+RUN mv default /etc/nginx/sites-enabled/default
+
 RUN pip3 install -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 80
+EXPOSE 443
 
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8000"]
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:8000 & nginx -g 'daemon off;'"]

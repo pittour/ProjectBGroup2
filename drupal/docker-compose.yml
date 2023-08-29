@@ -9,7 +9,8 @@ services:
   microservice:
     image: microservice
     ports:
-      - "8000:8000"
+      - "8081:80"
+      - "8082:443"
     env_file:
       - .env
 
