@@ -328,7 +328,7 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 ### DOCKERISER LE MICROSERVICE (validé)
 
-### INSTALLER LE SERVICE NGINX SUR LE CONTENEUR DU MICRO SERVICE (EN COURS): installation de procps pour superviser les services (gunicorn, nginx,...) ==> pas de systemctl
+### INSTALLER LE SERVICE NGINX SUR LE CONTENEUR DU MICRO SERVICE (EN COURS): installation de procps pour superviser les services (gunicorn, nginx,...) ==> pas de systemctl (validé)
 
 ### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI) => Ajout d'article / Suppression d'article (EN COURS)
 
