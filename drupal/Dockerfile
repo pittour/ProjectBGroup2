@@ -3,7 +3,6 @@ FROM drupal:10.1.2-apache
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
