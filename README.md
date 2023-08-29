@@ -330,10 +330,10 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 ### INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
 
-### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI)
+### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI) => Ajout d'article / Suppression d'article
 
 ----------------------------------------------------------------------------------------------------------------------------------------
-## JOUR 8 :m
+## JOUR 8 :
 
 ### PROJECTION AUTOMATISATION VIA JENKINS CI/CD
 
