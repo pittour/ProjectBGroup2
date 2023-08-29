@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object('config')
+
 db = SQLAlchemy(app)
 
 app.config['CACHE_TYPE'] = config("CACHE_TYPE")
