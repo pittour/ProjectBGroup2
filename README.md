@@ -328,9 +328,9 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 ### DOCKERISER LE MICROSERVICE (validé)
 
-### INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
+### INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR (EN COURS)
 
-### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI) => Ajout d'article / Suppression d'article
+### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI) => Ajout d'article / Suppression d'article (EN COURS)
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 8 :
