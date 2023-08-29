@@ -324,11 +324,13 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
  ----------------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 7  : OBJECTIFS
 
-### FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE
+### FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE (validé)
 
-### DOCKERISER LE MICROSERVICE
+### DOCKERISER LE MICROSERVICE (validé)
 
 ### INSTALLER NGINX ET CONFIGURER LE CERTIFICAT SUR LE CONTENEUR
+
+### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI)
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 ## JOUR 8 :m
