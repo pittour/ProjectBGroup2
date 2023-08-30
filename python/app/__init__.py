@@ -5,7 +5,6 @@ from decouple import config
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_cors import CORS
-import os
 
 app = Flask(__name__)
 app.config.from_object('config')

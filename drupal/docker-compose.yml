@@ -5,14 +5,8 @@ services:
     image: mysql:5.7.8
     env_file:
       - .env
-
-  microservice:
-    build: 
-      context: ../python
-      dockerfile: Dockerfile
-    ports:
-      - "8081:80"
-      - "8082:443"
+    networks:
+      - projetB
 
   drupal:
     build:
@@ -23,6 +17,11 @@ services:
     ports:
       - "8080:80"
       - "443:443"
-
     env_file:
       - .env
+    networks:
+      - projetB
+
+networks:
+  projetB:
+    external: true

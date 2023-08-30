@@ -1,0 +1,16 @@
+---
+version: '3'
+services:
+  microservice:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+      - "8082:443"
+    networks:
+      - projetB
+
+networks:
+  projetB:
+    external: true
