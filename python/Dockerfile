@@ -2,7 +2,8 @@ FROM python:slim-bullseye
 
 RUN apt-get update && \
     apt-get clean && \
-    apt-get install -y nginx
+    apt-get install -y nginx && \
+    apt-get install -y redis
 
 WORKDIR /etc/ssl
 RUN openssl genrsa -out kprivkpub.key 2048
@@ -19,4 +20,4 @@ RUN pip3 install -r requirements.txt
 EXPOSE 80
 EXPOSE 443
 
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:8000 & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "redis-server & gunicorn app:app --bind 0.0.0.0:8000 & nginx -g 'daemon off;'"]

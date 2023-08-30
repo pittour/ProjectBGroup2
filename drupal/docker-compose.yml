@@ -7,7 +7,9 @@ services:
       - .env
 
   microservice:
-    image: microservice
+    build: 
+      context: ../python
+      dockerfile: Dockerfile
     ports:
       - "8081:80"
       - "8082:443"
