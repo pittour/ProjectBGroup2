@@ -13,8 +13,6 @@ services:
     ports:
       - "8081:80"
       - "8082:443"
-    env_file:
-      - .env
 
   drupal:
     build:
