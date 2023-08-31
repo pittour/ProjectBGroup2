@@ -345,8 +345,8 @@ TEST : utilisation de la méthode DinD (Docker in Docker) : création d'un conte
 Problèmes rencontrés: difficulté réseau et ports.
 Abandon de cette option
 
- 
- ----------------------------------------------------------------------------------------------------------------------------------------## JOUR 9 :
+----------------------------------------------------------------------------------------------------------------------------------------
+## JOUR 9 :
  
 ### PROJECTION AUTOMATISATION VIA JENKINS CI/CD (SUITE)
 
