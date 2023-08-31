@@ -339,10 +339,10 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 ### PROJECTION AUTOMATISATION VIA JENKINS CI/CD
 
-TEST : utilisation de la méthode DinD (Docker in Docker) : création d'un conteneur jenkins qui lui même doit créer les conteneurs drupal, mysql, microservice.
+OPTION 1 : utilisation de la méthode DinD (Docker in Docker) : création d'un conteneur jenkins qui lui même doit créer les conteneurs drupal, mysql, microservice.
 (https://www.jenkins.io/doc/book/installing/docker/)
 
-Problèmes rencontrés: difficulté réseau et ports.
+Problèmes rencontrés: difficulté réseau et reconnaissance des ports entre les différents conteneurs.
 Abandon de cette option
 
 ----------------------------------------------------------------------------------------------------------------------------------------
