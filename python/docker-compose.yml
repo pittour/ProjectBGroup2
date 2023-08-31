@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:80"
-      - "8082:443"
+      - "8083:80"
+      - "8084:443"
     networks:
       - projetB
 
