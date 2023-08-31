@@ -339,7 +339,25 @@ Création en cours du fichier nginx.conf qui sera injecté dans le docker conten
 
 ### PROJECTION AUTOMATISATION VIA JENKINS CI/CD
 
+TEST : utilisation de la méthode DinD (Docker in Docker) : création d'un conteneur jenkins qui lui même doit créer les conteneurs drupal, mysql, microservice.
+(https://www.jenkins.io/doc/book/installing/docker/)
+
+Problèmes rencontrés: difficulté réseau et ports.
+Abandon de cette option
+
  
+ ----------------------------------------------------------------------------------------------------------------------------------------## JOUR 9 :
+ 
+### PROJECTION AUTOMATISATION VIA JENKINS CI/CD (SUITE)
+
+NOUVELLE METHODE:
+Activer l’utilisation du démon Docker dans le conteneur Jenkins
+
+Connexion de l'interface de ligne de commande Docker dans le conteneur Jenkins au démon Docker sur la machine hôte en fixant la prise du démon dans le conteneur avec l’indicateur -v. On ajoute l’argument suivant : /var/run/docker.sock:/var/run/docker.sock lorsqu'on exécute l’image :
+
+docker run -it -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
+
+
  
  
  
