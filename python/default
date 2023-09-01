@@ -13,6 +13,7 @@ server {
         ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt; 
         ssl_certificate_key /etc/ssl/kprivkpub.key; 
         ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers HIGH:!aNULL:!MD5;
 
         location / {
                 # First attempt to serve request as file, then
