@@ -280,12 +280,35 @@ Gestion des taux d'appels à l'API pour respecter les limites imposées.
 
 ## DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC PYTEST
 
-## DEFINITION DU MODELE DE DONNEES :
-Modélisation de la commande dans SQLAlchemy.
+## DEFINITION DU MODELE DE DONNEES : Modélisation dans SQLAlchemy.
+
+SQLAlchemy est un outil fondé sur le principe de mapping objet-relationnel (ORM).
+
+SQLAlchemy facilite donc la liaison entre Python et les bases de données SQL en convertissant automatiquement les appels de classes de Python en instructions SQL. Il est donc possible de requêter les bases de données relationnelles de manière pythonique.
+
+Notre code python sera le même pour tous les environnements et dialectes SQL tels que SQlite, PostGReSQL ou Oracle. Cela améliore l’interopérabilité avec le reste de notre application et on peut ainsi changer de système de base de données sans avoir à changer son code.
+
+L’écriture des contraintes sur le schéma des tables directement depuis notre script python.
+
+Au lieu de jongler entre les différents dialectes SQL, le toolkit open source SQL Alchemy nous permet ainsi de rationaliser notre workflow et de traiter efficacement nos données depuis le langage Python.
+
+
+Pros and Cons of SQL Alchemy
+
+Pros
+
+    Alchemy gives abstraction to the backend database. So, an average developer does not have to worry about SQL statements.
+    The transition to other databases becomes easier.
+    Queries are optimized and may work better than SQL if you wrote it yourself unless you are an SQL veteran.
+
+Cons
+
+    There could be instances where Alchemy might become inefficient. Therefore, knowing SQL is always desired.
+    Knowing what is happening under the hood often gives an edge. So, it is not a complete replacement for SQL.
+
 
 ## 5. GESTION DES ERREURS (EN COURS)
-Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, les
-timeouts, etc.
+Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, etc...
 
 
 
@@ -379,6 +402,8 @@ RUN apt-get install -y python3 python3-pip python3-venv
  
  
  EN ATTENTE : TEST ADDITIONNEL Utiliser pyflakes 3.1.0 (pip install pyflakes)
+
+ ----------------------------------------------------------------------------------------------------------------------------------------
 
 
  
