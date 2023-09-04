@@ -1,0 +1,88 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Environment variables') {
+            steps {
+                // Création des fichiers env
+                script {
+                    def drupalContent = ''
+                    def pythonContent = ''
+                    withCredentials([file(credentialsId: 'drupal-env', variable: 'DRUPAL_FILE')]) {
+                        drupalContent = readFile(file: "${env.DRUPAL_FILE}")
+                    }
+                    writeFile(file: 'drupal/.env', text: drupalContent)
+
+                    withCredentials([file(credentialsId: 'python-env', variable: 'PYTHON_FILE')]) {
+                        pythonContent = readFile(file: "${env.PYTHON_FILE}")
+                    }
+                    writeFile(file: 'python/.env', text: pythonContent)
+
+                }
+                echo "Environement variables created"
+            }
+        }
+
+        stage('Monolith launch') {
+            steps {
+                //  Lancement drupal
+                sh '''
+                    cd drupal/
+                    docker compose up -d
+                '''
+                echo "Drupal is ready"
+            }
+        }
+
+        stage('Application tests') {
+            steps {
+                timeout(5) {
+                    waitUntil {
+                        script {
+                            try {
+                                def response = httpRequest(
+                                    httpMode: 'GET',
+                                    ignoreSslErrors: true,
+                                    url: 'https://drupal-drupal-1'
+                                )
+                                return (response.status == 200)
+                            }
+                            catch (exception) {
+                                return false
+                            }
+                        }
+                    }
+                }
+                sh '''
+                    cd python/
+                    python3 -m venv myenv
+                    . ./myenv/bin/activate
+                    pip3 install -r requirements.txt
+                    python3 test.py
+                '''
+
+                echo "Tests passed successfully"
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd python/
+                    docker compose up -d
+                '''
+                echo "Microservice deployed sucessfully"
+            }
+        }
+
+        stage('Cleanup Workspace') {
+            steps {
+                cleanWs()
+                echo "Workspace cleaned"
+            }
+        }
+    }
+}
