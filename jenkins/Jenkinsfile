@@ -11,6 +11,10 @@ pipeline {
             }
         }
 
+        stage('GitSCM Pulling') {
+            checkout([$class: 'GitSCM', branches: [[name: 'kevin']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Sparkly74/ProjectBGroup2.git']]])
+        }
+
         stage('Environment variables') {
             steps {
                 // Création des fichiers env
