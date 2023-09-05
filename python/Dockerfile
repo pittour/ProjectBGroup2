@@ -17,6 +17,9 @@ RUN mv default /etc/nginx/sites-enabled/default
 
 RUN pip3 install -r requirements.txt
 
+RUN apt update
+RUN apt install nano
+
 EXPOSE 80
 EXPOSE 443
 
