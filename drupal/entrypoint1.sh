@@ -4,7 +4,7 @@
 echo "Waiting for mysql container..."
 
 # Changer de méthode. Requete http ?
-sleep 25
+sleep 30
 
 cd /opt/drupal
 
