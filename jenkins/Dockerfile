@@ -8,5 +8,8 @@ RUN add-apt-repository \
 $(lsb_release -cs) \
 stable"
 RUN apt-get update  -qq \
-&& apt-get -y install docker-ce
+    && apt-get -y install docker-ce
 RUN usermod -aG docker jenkins
+
+RUN chown -R jenkins:jenkins /var/jenkins_home/
+USER jenkins
