@@ -12,4 +12,13 @@ RUN apt-get update  -qq \
 RUN usermod -aG docker jenkins
 
 RUN chown -R jenkins:jenkins /var/jenkins_home/
+
+WORKDIR /var/jenkins_home/
 USER jenkins
+
+RUN curl -O https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz
+RUN tar -xvf apache-jmeter-5.6.2.tgz
+
+COPY --chown=jenkins:jenkins charge.jmx /var/jenkins_home/apache-jmeter-5.6.2/bin/charge.jmx
+COPY --chown=jenkins:jenkins user.properties /var/jenkins_home/apache-jmeter-5.6.2/bin/user.properties
+
