@@ -78,7 +78,7 @@ pipeline {
             }
         }
 
-        // stage('Cleanup Workspace') {
+        // stage('Cleanup Workspace.') {
         //     steps {
         //         cleanWs()
         //         echo "Workspace cleaned"
