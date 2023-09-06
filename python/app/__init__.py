@@ -10,10 +10,10 @@ from flask_limiter.util import get_remote_address
 app = Flask(__name__)
 app.config.from_object('config')
 
-# Configuration pour la base de données de développement
+# # Configuration pour la base de données de développement
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
 
-# Configuration pour la base de données de test
+# # Configuration pour la base de données de test
 app.config['SQLALCHEMY_DATABASE_URI_TEST'] = 'sqlite:///test.db'
 
 db = SQLAlchemy(app)
@@ -23,8 +23,7 @@ app.config['CACHE_REDIS_URL'] = config("REDIS_URL")
 app.config['CACHE_DEFAULT_TIMEOUT'] = config("DEFAULT_TIMEOUT")
 cache = Cache(app)
 
-CORS(app, resources={
-     r"/*": {"origins": f"https://{config('DRUPAL_CONTAINER_NAME')}"}})
+CORS(app, resources={r"/*": {"origins": f"https://{config('DRUPAL_CONTAINER_NAME')}"}})
 
 limiter = Limiter(
     get_remote_address,
@@ -33,5 +32,7 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
+from app import models
 with app.app_context():
     db.create_all()
+from . import view
