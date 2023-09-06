@@ -5,6 +5,20 @@ RUN apt-get update && \
     apt-get install -y nginx && \
     apt-get install -y redis
 
+RUN apt-get install -y ufw
+
+RUN ufw allow 80/tcp
+RUN ufw allow 443/tcp
+RUN ufw allow 8000/tcp
+
+RUN ufw default deny incoming
+RUN ufw default allow outgoing
+
+RUN ufw logging on
+RUN ufw logging medium
+RUN service ufw start
+
+
 WORKDIR /etc/ssl
 RUN openssl genrsa -out kprivkpub.key 2048
 RUN openssl req -x509 -nodes -days 365 -key kprivkpub.key -out /etc/ssl/certs/nginx-selfsigned.crt  -subj /C="FR"/ST="Rhone"/L="Lyon"/O="My Organization"/OU="My Unit"/CN="mydomain.com"/emailAddress="admin@mydomain.com"
