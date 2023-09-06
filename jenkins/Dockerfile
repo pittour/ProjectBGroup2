@@ -10,4 +10,6 @@ RUN add-apt-repository \
 RUN apt-get update  -qq \
     && apt-get -y install docker-ce
 RUN usermod -aG docker jenkins
+
+RUN chown -R jenkins:jenkins /var/jenkins_home/
 USER jenkins
