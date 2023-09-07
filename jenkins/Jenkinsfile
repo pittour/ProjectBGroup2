@@ -87,6 +87,24 @@ pipeline {
     }
     post {
         always {
+            // Faire http request pour le ms
+            timeout(5) {
+                    waitUntil {
+                        script {
+                            try {
+                                def response = httpRequest(
+                                    httpMode: 'GET',
+                                    ignoreSslErrors: true,
+                                    url: 'https://python-microservice-1'
+                                )
+                                return (response.status == 200)
+                            }
+                            catch (exception) {
+                                return false
+                            }
+                        }
+                    }
+                }
             sh '''
                 cd /var/jenkins_home/apache-jmeter-5.6.2/bin
                 /var/jenkins_home/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
