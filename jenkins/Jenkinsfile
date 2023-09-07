@@ -95,7 +95,7 @@ pipeline {
                                 def response = httpRequest(
                                     httpMode: 'GET',
                                     ignoreSslErrors: true,
-                                    url: 'https://python-microservice-1'
+                                    url: 'https://python-microservice-1/get_articles'
                                 )
                                 return (response.status == 200)
                             }
