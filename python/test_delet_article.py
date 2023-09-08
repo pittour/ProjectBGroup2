@@ -15,7 +15,6 @@ class TestIntegrationSupprimerArticle(unittest.TestCase):
             db.session.query(Article).delete()
             db.session.commit()
             db.session.remove()
-            
 
     def test_supprimer_article(self):
         with app.app_context():

@@ -4,7 +4,6 @@ import json
 from app.models import Article
 
 
-
 class TestIntegrationAjouterArticle(unittest.TestCase):
 
     def setUp(self):
@@ -17,7 +16,6 @@ class TestIntegrationAjouterArticle(unittest.TestCase):
             db.session.query(Article).delete()
             db.session.commit()
             db.session.remove()
-            
 
     def test_ajouter_article(self):
         with app.app_context():

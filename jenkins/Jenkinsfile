@@ -10,21 +10,6 @@ pipeline {
 
         stage('Environment variables') {
             steps {
-                // Création des fichiers env
-                // script {
-                //     def drupalContent = ''
-                //     def pythonContent = ''
-                //     withCredentials([file(credentialsId: 'drupal-env', variable: 'DRUPAL_FILE')]) {
-                //         drupalContent = readFile(file: "${env.DRUPAL_FILE}")
-                //     }
-                //     writeFile(file: 'drupal/.env', text: drupalContent)
-
-                //     withCredentials([file(credentialsId: 'python-env', variable: 'PYTHON_FILE')]) {
-                //         pythonContent = readFile(file: "${env.PYTHON_FILE}")
-                //     }
-                //     writeFile(file: 'python/.env', text: pythonContent)
-
-                // }
                 sh('cp $DRUPAL_ENV ./drupal/.env')
                 sh('cp $PYTHON_ENV ./python/.env')
                 echo "Environement variables created"
@@ -66,7 +51,9 @@ pipeline {
                     python3 -m venv myenv
                     . ./myenv/bin/activate
                     pip3 install -r requirements.txt
-                    python3 test.py
+                    flake8 --exclude=myenv .
+                    python3 test_add_article.py
+                    python3 test_delet_article.py
                 '''
 
                 echo "Tests passed successfully"
@@ -84,12 +71,6 @@ pipeline {
             }
         }
 
-        // stage('Cleanup Workspace.') {
-        //     steps {
-        //         cleanWs()
-        //         echo "Workspace cleaned"
-        //     }
-        // }
     }
     post {
         always {
