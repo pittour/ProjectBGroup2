@@ -7,18 +7,18 @@ class TestIntegrationSupprimerArticle(unittest.TestCase):
 
     def setUp(self):
         # Utilise la base de données de test.
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
         self.app = app.test_client()
         self.app.testing = True
 
     def tearDown(self):
         with app.app_context():
+            db.session.query(Article).delete()
+            db.session.commit()
             db.session.remove()
-            db.drop_all()
+            
 
     def test_supprimer_article(self):
         with app.app_context():
-            db.create_all()
 
             # Ajoutez un article à la base de données pour le supprimer ensuite
             article_data = {

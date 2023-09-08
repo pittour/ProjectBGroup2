@@ -16,8 +16,7 @@ app = Flask(__name__)
 metrics = GunicornPrometheusMetrics(app)
 app.config.from_object('config')
 
-# # Configuration pour la base de données de développement
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
+
 db = SQLAlchemy(app)
 
 app.config['CACHE_TYPE'] = config("CACHE_TYPE")
