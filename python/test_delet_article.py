@@ -6,7 +6,7 @@ from app.models import Article
 class TestIntegrationSupprimerArticle(unittest.TestCase):
 
     def setUp(self):
-        # Utilise la base de données de test
+        # Utilise la base de données de test.
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
         self.app = app.test_client()
         self.app.testing = True

@@ -15,7 +15,7 @@ class TestIntegrationAjouterArticle(unittest.TestCase):
     def tearDown(self):
         with app.app_context():
             db.session.remove()
-            db.drop_all()
+            db.drop_all()a
 
     def test_ajouter_article(self):
         with app.app_context():
