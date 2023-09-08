@@ -10,6 +10,8 @@ RUN openssl genrsa -out kprivkpub.key 2048
 RUN openssl req -x509 -nodes -days 365 -key kprivkpub.key -out /etc/ssl/certs/nginx-selfsigned.crt  -subj /C="FR"/ST="Rhone"/L="Lyon"/O="My Organization"/OU="My Unit"/CN="mydomain.com"/emailAddress="admin@mydomain.com"
 
 WORKDIR /drupal-brutal
+ENV PROMETHEUS_MULTIPROC_DIR /tmp
+ENV prometheus_multiproc_dir /tmp
 
 COPY . .
 
@@ -32,4 +34,4 @@ RUN touch /var/run/nginx.pid && \
         chown -R nginx:nginx /var/run/nginx.pid
 
 USER nginx
-CMD ["sh", "-c", "redis-server & gunicorn app:app --bind 0.0.0.0:8000 & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "redis-server & gunicorn -c config-gunicorn.py --bind 0.0.0.0:8000 app:app & nginx -g 'daemon off;'"]

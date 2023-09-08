@@ -5,8 +5,10 @@ from decouple import config
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_cors import CORS
+from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 
 app = Flask(__name__)
+metrics = GunicornPrometheusMetrics(app)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
