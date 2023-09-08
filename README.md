@@ -263,7 +263,7 @@ JOUR 4:
 1. Configuration de l'environnement :
 Installation de Flask, SQLAlchemy et autres dépendances nécessaires.
 Configuration de la base de données pour le micro-service.
-2. Connexion au monolithe PrestaShop :
+2. Connexion au monolithe Drupal :
 Utilisation de la bibliothèque requests pour intégrer l'API REST de DRUPAL.
 3. Définition du modèle de données :
 Modélisation de la commande dans SQLAlchemy.
@@ -278,7 +278,45 @@ Mise en cache des réponses fréquemment utilisées.
 Gestion des taux d'appels à l'API pour respecter les limites imposées.
 
 
-## DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC PYTEST
+## DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC UNITEST
+## Test d'Intégration : Ajout d'un Article
+
+Ce test d'intégration vise à vérifier la fonctionnalité d'ajout d'un article dans le micro-service. Il assure que l'API réagit correctement aux demandes POST pour créer de nouveaux articles en vérifiant la création réussie de l'article et en inspectant ses détails.
+
+**Description du Test :**
+
+1. **Configuration de la Base de Données :** Le test configure une base de données SQLite pour s'assurer que l'environnement de test est propre et isolé.
+
+2. **Ajout d'un Article :** Le test envoie une requête POST à l'endpoint `/add_article` avec des données JSON simulées pour un nouvel article, comprenant un titre et un contenu.
+
+3. **Validation de la Réponse :** Il vérifie que la réponse HTTP est conforme à la norme (statut 201 - Créé avec succès) et que le message de réponse indique "Article added successfully".
+
+4. **Vérification en Base de Données :** Le test interroge la base de données pour s'assurer qu'un nouvel article a été créé avec les détails attendus, notamment le titre et le contenu.
+
+**Raison du Test :**
+
+Ce test garantit que le micro-service est capable de gérer avec succès les demandes d'ajout d'articles, qu'il stocke correctement les données dans la base de données, et qu'il renvoie une réponse appropriée pour informer le client de la réussite de l'opération.
+
+## Test d'Intégration : Suppression d'un Article
+
+Ce test d'intégration vise à vérifier la fonctionnalité de suppression d'un article dans le micro-service. Il s'assure que l'API est capable de gérer les demandes DELETE pour supprimer des articles existants de manière fiable.
+
+**Description du Test :**
+
+1. **Configuration de la Base de Données :** Le test configure une base de données SQLite pour garantir un environnement de test propre et isolé.
+
+2. **Ajout d'un Article à Supprimer :** Le test ajoute d'abord un article factice à la base de données en envoyant une requête POST à l'endpoint `/add_article`.
+
+3. **Suppression de l'Article :** Ensuite, le test envoie une requête DELETE à l'endpoint `/node/article/<article_id>` pour supprimer l'article précédemment ajouté.
+
+4. **Validation de la Réponse :** Il vérifie que la réponse HTTP renvoyée est conforme à la norme (statut 200 - OK).
+
+5. **Vérification en Base de Données :** Le test interroge la base de données pour s'assurer que l'article a bien été supprimé.
+
+**Raison du Test :**
+
+Ce test garantit que le micro-service peut gérer correctement les demandes de suppression d'articles, en veillant à ce que les données soient supprimées de la base de données et que le système renvoie une réponse appropriée. Cela garantit également que le système gère correctement les opérations de suppression, ce qui est essentiel pour maintenir des données cohérentes et éviter les erreurs.
+
 
 ## DEFINITION DU MODELE DE DONNEES : Modélisation dans SQLAlchemy.
 
