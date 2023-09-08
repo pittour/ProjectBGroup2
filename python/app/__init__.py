@@ -18,10 +18,6 @@ app.config.from_object('config')
 
 # # Configuration pour la base de données de développement
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.db'
-
-# # Configuration pour la base de données de test
-app.config['SQLALCHEMY_DATABASE_URI_TEST'] = 'sqlite:///test.db'
-
 db = SQLAlchemy(app)
 
 app.config['CACHE_TYPE'] = config("CACHE_TYPE")
