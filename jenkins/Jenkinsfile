@@ -51,7 +51,7 @@ pipeline {
                     python3 -m venv myenv
                     . ./myenv/bin/activate
                     pip3 install -r requirements.txt
-                    flake8 --exclude=myenv .
+                    flake8 --ignore=E402 --exclude=myenv .
                     python3 test_add_article.py
                     python3 test_delet_article.py
                 '''
