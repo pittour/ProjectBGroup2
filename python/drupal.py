@@ -2,8 +2,9 @@ import requests
 import os
 from requests.auth import HTTPBasicAuth
 from config import DRUPAL_API_PASS, HEADERS, DRUPAL_API_USER
+from decouple import config
 
-DRUPAL_API_URL=f"https://{os.environ['DRUPAL_CONTAINER_NAME']}/jsonapi"
+DRUPAL_API_URL=f"https://{config('DRUPAL_CONTAINER_NAME')}/jsonapi"
 
 def fetch_articles():
     response = requests.get(f'{DRUPAL_API_URL}/node/article', headers=HEADERS, auth=HTTPBasicAuth(DRUPAL_API_USER, DRUPAL_API_PASS), verify=False)

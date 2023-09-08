@@ -6,8 +6,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Drush globally using Composer
 
+RUN groupadd -r apache && useradd -r -g apache apache
 
 # Add Composer bin directory to PATH
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
@@ -22,8 +22,11 @@ COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN chmod +x /usr/local/bin/entrypoint1.sh
 RUN chmod +x /usr/local/etc/php/php.ini
 
+RUN chown -R apache:apache /var/run/apache2
+
 # Set the working directory to Drupal web root
 WORKDIR /opt/drupal
+RUN chown -R apache:apache /opt/drupal
 
 RUN composer self-update
 
@@ -37,5 +40,9 @@ RUN openssl req -x509 -nodes -days 365 -key kprivkpub.key  -keyout /etc/ssl/priv
 RUN a2enmod ssl
 RUN a2enmod headers
 RUN service apache2 restart
+
+RUN chown -R apache:apache /etc/ssl
+
+USER apache
 
 CMD ["/usr/local/bin/entrypoint1.sh"]

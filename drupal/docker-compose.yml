@@ -5,14 +5,8 @@ services:
     image: mysql:5.7.8
     env_file:
       - .env
-
-  microservice:
-    image: microservice
-    ports:
-      - "8081:80"
-      - "8082:443"
-    env_file:
-      - .env
+    networks:
+      - projetB
 
   drupal:
     build:
@@ -21,8 +15,13 @@ services:
     depends_on:
       - mysql
     ports:
-      - "8080:80"
-      - "443:443"
-
+      - "8081:80"
+      - "8082:443"
     env_file:
       - .env
+    networks:
+      - projetB
+
+networks:
+  projetB:
+    external: true

@@ -1,0 +1,19 @@
+---
+version: '3'
+services:
+  microservice:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:80"
+      - "8084:443"
+      - "9200:9200"
+    networks:
+      - projetB
+    tmpfs:
+      - /tmp
+
+networks:
+  projetB:
+    external: true

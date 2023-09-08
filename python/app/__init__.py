@@ -5,9 +5,14 @@ from decouple import config
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_cors import CORS
+from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 import os
 
+os.environ['PROMETHEUS_MULTIPROC_DIR']='/tmp'
+os.environ['prometheus_multiproc_dir']='/tmp'
+
 app = Flask(__name__)
+metrics = GunicornPrometheusMetrics(app)
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
@@ -17,7 +22,7 @@ app.config['CACHE_REDIS_URL'] = config("REDIS_URL")
 app.config['CACHE_DEFAULT_TIMEOUT'] = config("DEFAULT_TIMEOUT")
 cache = Cache(app)
 
-CORS(app, resources={r"/*": {"origins": f"https://{os.environ['DRUPAL_CONTAINER_NAME']}"}})
+CORS(app, resources={r"/*": {"origins": f"https://{config('DRUPAL_CONTAINER_NAME')}"}})
 
 limiter = Limiter(
     get_remote_address,
