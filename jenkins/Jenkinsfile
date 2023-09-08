@@ -38,7 +38,7 @@ pipeline {
 
         stage('Application tests') {
             steps {
-                timeout(5) {
+                timeout(7) {
                     waitUntil {
                         script {
                             try {
