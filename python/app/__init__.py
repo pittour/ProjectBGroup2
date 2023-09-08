@@ -7,7 +7,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 import os
-from app.view import bp
+
 
 os.environ['PROMETHEUS_MULTIPROC_DIR'] = '/tmp'
 os.environ['prometheus_multiproc_dir'] = '/tmp'
@@ -24,8 +24,7 @@ app.config['CACHE_DEFAULT_TIMEOUT'] = config("DEFAULT_TIMEOUT")
 cache = Cache(app)
 
 CORS(app, resources={r"/*": {
-    "origins": f"https://{config('DRUPAL_CONTAINER_NAME')}"
-    }})
+    "origins": f"https://{config('DRUPAL_CONTAINER_NAME')}"}})
 
 limiter = Limiter(
     get_remote_address,
@@ -34,6 +33,7 @@ limiter = Limiter(
     storage_uri="memory://",
 )
 
+from app.view import bp
 app.register_blueprint(bp)
 
 # from app.models import Article

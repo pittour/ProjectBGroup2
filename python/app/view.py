@@ -22,7 +22,7 @@ def get_articles():
 # Échappez les données de sortie à l'aide de bleach
     cleaned_data = bleach.clean(
         product_data, tags=[], attributes={}, styles=[], strip=True
-        )
+    )
 
     return cleaned_data
 
@@ -49,31 +49,31 @@ def add_article():
     if not title or not content:
         return jsonify({
             "message": "Error : Title and/or Content not provided."
-            }), 400
+        }), 400
 
     # Échappez les données avant de les envoyer à Drupal
     title = bleach.clean(title, tags=[], attributes={}, strip=True)
     content = bleach.clean(content, tags=[], attributes={}, strip=True)
 
     data = {
-            "data": {
-                "type": "node--article",
-                "attributes": {
-                    "title": title,
-                    "body": {
-                        "value": content,
-                        "format": "plain_text"
-                    }
+        "data": {
+            "type": "node--article",
+            "attributes": {
+                "title": title,
+                "body": {
+                    "value": content,
+                    "format": "plain_text"
                 }
             }
         }
+    }
     response = create_article(json=data)
 
     if response.status_code == 201:
         article = Article(
             article_drupal_id=response.json()['data']['id'],
             article_title=title, article_content=content
-            )
+        )
         db.session.add(article)
         db.session.commit()
         return jsonify({"message": "Article added successfully"}), 201
