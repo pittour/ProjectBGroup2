@@ -1,26 +1,32 @@
 pipeline {
 
     agent any
+    environment {
+        DRUPAL_ENV = credentials('drupal-env')
+        PYTHON_ENV = credentials('python-env')
+    }
 
     stages {
 
         stage('Environment variables') {
             steps {
                 // Création des fichiers env
-                script {
-                    def drupalContent = ''
-                    def pythonContent = ''
-                    withCredentials([file(credentialsId: 'drupal-env', variable: 'DRUPAL_FILE')]) {
-                        drupalContent = readFile(file: "${env.DRUPAL_FILE}")
-                    }
-                    writeFile(file: 'drupal/.env', text: drupalContent)
+                // script {
+                //     def drupalContent = ''
+                //     def pythonContent = ''
+                //     withCredentials([file(credentialsId: 'drupal-env', variable: 'DRUPAL_FILE')]) {
+                //         drupalContent = readFile(file: "${env.DRUPAL_FILE}")
+                //     }
+                //     writeFile(file: 'drupal/.env', text: drupalContent)
 
-                    withCredentials([file(credentialsId: 'python-env', variable: 'PYTHON_FILE')]) {
-                        pythonContent = readFile(file: "${env.PYTHON_FILE}")
-                    }
-                    writeFile(file: 'python/.env', text: pythonContent)
+                //     withCredentials([file(credentialsId: 'python-env', variable: 'PYTHON_FILE')]) {
+                //         pythonContent = readFile(file: "${env.PYTHON_FILE}")
+                //     }
+                //     writeFile(file: 'python/.env', text: pythonContent)
 
-                }
+                // }
+                sh('cp $DRUPAL_ENV ./drupal/.env')
+                sh('cp $PYTHON_ENV ./python/.env')
                 echo "Environement variables created"
             }
         }
