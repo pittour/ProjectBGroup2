@@ -102,10 +102,7 @@ pipeline {
         }
         success {
             sh '''
-                git checkout last-stable
-                git add .
-                git commit -m "auto push"
-                git push --force origin last-stable
+                git push --force origin kevin:last-stable
             '''
         }
     }
