@@ -95,10 +95,10 @@ pipeline {
                     }
                 }
             sh '''
-                cd /var/jenkins_home/apache-jmeter-5.6.2/bin
-                /var/jenkins_home/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
+                cd /home/jenkins/apache-jmeter-5.6.2/bin
+                /home/jenkins/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
             '''
-            perfReport '/var/jenkins_home/apache-jmeter-5.6.2/bin/report.jtl'
+            perfReport '/home/jenkins/apache-jmeter-5.6.2/bin/report.jtl'
         }
     }
 }
