@@ -85,6 +85,12 @@ pipeline {
             '''
             cleanWs()
             git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
+            sh '''
+                cd python/
+                docker compose up
+                cd ../drupal
+                docker compose up
+            '''
         }
 
         success {
