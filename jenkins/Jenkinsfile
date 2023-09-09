@@ -87,9 +87,9 @@ pipeline {
             git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
             sh '''
                 cd python/
-                docker compose up
+                docker compose up -d
                 cd ../drupal
-                docker compose up
+                docker compose up -d
             '''
         }
 
