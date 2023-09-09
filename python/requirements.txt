@@ -34,3 +34,5 @@ urllib3==2.0.4
 werkzeug==2.3.7
 wrapt==1.15.0
 zipp==3.16.2
+prometheus-flask-exporter==0.22.4
+prometheus_client
