@@ -1,0 +1,24 @@
+FROM jenkins/ssh-agent:alpine-jdk17
+RUN apk update
+RUN apk upgrade
+RUN apk add curl gnupg python3 py3-virtualenv docker docker-compose
+
+# RUN adduser -G docker jenkins
+
+RUN chown -R jenkins:jenkins /home/jenkins
+RUN chown jenkins:jenkins /etc
+RUN chown jenkins:jenkins /etc/ssh/
+RUN chown jenkins:jenkins /run
+
+WORKDIR /home/jenkins
+
+RUN curl -O https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz
+RUN tar -xvf apache-jmeter-5.6.2.tgz
+
+COPY --chown=jenkins:jenkins charge.jmx /var/jenkins_home/apache-jmeter-5.6.2/bin/charge.jmx
+COPY --chown=jenkins:jenkins user.properties /var/jenkins_home/apache-jmeter-5.6.2/bin/user.properties
+
+USER jenkins
+
+
+
