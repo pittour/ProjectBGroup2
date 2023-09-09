@@ -15,15 +15,13 @@ def get_articles():
     product_data = fetch_articles()
     if not product_data:
         return jsonify({"error": "Failed to fetch articles from drupal"}), 500
-
-    return product_data
-
-
+    
+    
 # Échappez les données de sortie à l'aide de bleach
     cleaned_data = bleach.clean(
         product_data, tags=[], attributes={}, styles=[], strip=True
     )
-
+    
     return cleaned_data
 
 
@@ -33,6 +31,8 @@ def add_article():
 
     title = request.json.get('title')
     content = request.json.get('content')
+    username = request.json.get('username') 
+    password = request.json.get('password') 
 
     # limites de caractères maximales
     max_title_length = 100
@@ -46,9 +46,9 @@ def add_article():
     if len(content) > max_content_length:
         content = content[:max_content_length]
 
-    if not title or not content:
+    if not title or not content or not username or not password:
         return jsonify({
-            "message": "Error : Title and/or Content not provided."
+            "message": "Error : Title, Content, Username and/or Password not provided."
         }), 400
 
     # Échappez les données avant de les envoyer à Drupal
@@ -67,7 +67,7 @@ def add_article():
             }
         }
     }
-    response = create_article(json=data)
+    response = create_article(username, password, json=data)
 
     if response.status_code == 201:
         article = Article(
