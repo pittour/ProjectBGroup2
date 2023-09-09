@@ -12,13 +12,13 @@ RUN chown jenkins:jenkins /run
 
 WORKDIR /home/jenkins
 
+USER jenkins
+
 RUN curl -O https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz
 RUN tar -xvf apache-jmeter-5.6.2.tgz
 
 COPY --chown=jenkins:jenkins charge.jmx /home/jenkins/apache-jmeter-5.6.2/bin/charge.jmx
 COPY --chown=jenkins:jenkins user.properties /home/jenkins/apache-jmeter-5.6.2/bin/user.properties
-
-USER jenkins
 
 
 
