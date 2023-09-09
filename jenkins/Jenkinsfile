@@ -101,7 +101,7 @@ pipeline {
             perfReport '/home/jenkins/apache-jmeter-5.6.2/bin/report.jtl'
         }
         success {
-            sshagent(credentials: ['github_access']) {
+           withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
                 sh '''
                     git push --force origin HEAD:last-stable
                 '''
