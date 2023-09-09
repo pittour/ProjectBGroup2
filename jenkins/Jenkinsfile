@@ -77,13 +77,13 @@ pipeline {
     post {
         failure {
             // Faire http request pour le ms
-            cleanWs()
             sh '''
                 cd python/
                 docker compose down
                 cd ../drupal
                 docker compose down
             '''
+            cleanWs()
             git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
         }
 
