@@ -77,7 +77,7 @@ pipeline {
     post {
         failure {
             // Faire http request pour le ms
-            cleansWs()
+            cleanWs()
             git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
         }
 
