@@ -75,8 +75,13 @@ pipeline {
 
     }
     post {
-        always {
+        failure {
             // Faire http request pour le ms
+            cleansWs()
+            git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
+        }
+
+        success {
             timeout(5) {
                     waitUntil {
                         script {
@@ -94,14 +99,14 @@ pipeline {
                         }
                     }
                 }
+            // supprimer le erreur
             sh '''
-                cd /home/jenkins/apache-jmeter-5.6.2/bin
+                cd /home/jenkins/apache-jmeter-5.6.2/bin/erreur
                 /home/jenkins/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
             '''
             perfReport '/home/jenkins/apache-jmeter-5.6.2/bin/report.jtl'
-        }
-        success {
-           withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
+
+            withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
                 sh '''
                     git push --force origin HEAD:last-stable
                 '''
