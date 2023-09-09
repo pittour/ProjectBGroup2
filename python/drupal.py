@@ -8,8 +8,7 @@ DRUPAL_API_URL = f"https://{config('DRUPAL_CONTAINER_NAME')}/jsonapi"
 
 def fetch_articles():
     response = requests.get(f'{DRUPAL_API_URL}/node/article', headers=HEADERS,
-                            auth=HTTPBasicAuth
-                            (DRUPAL_API_USER, DRUPAL_API_PASS), verify=False)
+                            verify=False)
     if response.status_code == 200:
         return response.json()
     return None

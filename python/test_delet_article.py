@@ -34,7 +34,7 @@ class TestIntegrationSupprimerArticle(unittest.TestCase):
             article_id = article_a_supprimer.id
 
             # Supprimez l'article
-            response = self.app.delete(f'/node/article/{article_id}')
+            response = self.app.delete(f'/delete_article/{article_id}')
             self.assertEqual(response.status_code, 200)
 
             articles_apres_suppression = Article.query.all()

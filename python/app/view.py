@@ -81,7 +81,7 @@ def add_article():
     return jsonify({"message": "Error : Article creation failed"}), 500
 
 
-@app.route('/node/article/<article_id>', methods=['DELETE'])
+@app.route('/delete_article/<article_id>', methods=['DELETE'])
 def supprimer_article(article_id):
 
     article = db.session.query(Article).filter_by(id=article_id).first()
