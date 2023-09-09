@@ -102,7 +102,7 @@ pipeline {
         }
         success {
             sh '''
-                git push --force origin kevin:last-stable
+                git branch
             '''
         }
     }
