@@ -20,7 +20,7 @@ pipeline {
 
         stage('Monolith launch') {
             steps {
-                //  Lancement drupal
+                //  Lancement drupal.
                 sh '''
                     cd drupal/
                     docker compose up -d
