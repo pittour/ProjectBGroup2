@@ -2,7 +2,9 @@ from app import db
 from datetime import datetime
 from config import DRUPAL_API_USER
 
+
 class Article(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     article_drupal_id = db.Column(db.Integer, nullable=False)
     article_title = db.Column(db.String, nullable=False)
