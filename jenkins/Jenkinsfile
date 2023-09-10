@@ -137,7 +137,7 @@ pipeline {
                 keepAll: true,
                 reportDir: '/home/jenkins',
                 reportFiles: 'code-scan.html, image-scan.html',
-                reportName: 'Trivy Scan',
+                reportName: 'Code scan, image scan',
                 reportTitles: 'Trivy Scan'
             ]
 
