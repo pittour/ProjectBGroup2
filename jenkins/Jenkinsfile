@@ -10,6 +10,17 @@ pipeline {
 
     stages {
 
+        stage('Scanning the microservice code') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd python/
+                    trivy fs --scanners config --format template --template "@/home/jenkins/html.tpl" -o /home/jenkins/code-scan.html .
+                '''
+                echo "Microservice container scanned sucessfully"
+            }
+        }
+
         stage('Environment variables') {
             steps {
                 sh('cp $DRUPAL_ENV ./drupal/.env')
@@ -62,6 +73,28 @@ pipeline {
             }
         }
 
+        stage('Building') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd python/
+                    docker image build -t microservice .
+                '''
+                echo "Microservice built sucessfully"
+            }
+        }
+
+        stage('Scanning the microservice container') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd /home/jenkins
+                    trivy image --format template --template "@html.tpl" -o image-scan.html microservice
+                '''
+                echo "Microservice container scanned sucessfully"
+            }
+        }
+
         stage('Deployment') {
             steps {
                 // Lancement de l'app
@@ -97,6 +130,15 @@ pipeline {
         }
 
         success {
+            publishHTML target : [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportFiles: 'code-scan.html, image-scan.html',
+                reportName: 'Trivy Scan',
+                reportTitles: 'Trivy Scan'
+            ]
+
             withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
                 sh '''
                     git push --force origin HEAD:last-stable

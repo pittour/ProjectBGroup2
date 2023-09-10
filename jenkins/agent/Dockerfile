@@ -3,14 +3,16 @@ RUN apk update
 RUN apk upgrade
 RUN apk add curl gnupg python3 py3-virtualenv docker docker-compose
 
-# RUN adduser -G docker jenkins
-
 RUN chown -R jenkins:jenkins /home/jenkins
 RUN chown jenkins:jenkins /etc
 RUN chown jenkins:jenkins /etc/ssh/
 RUN chown jenkins:jenkins /run
 
 WORKDIR /home/jenkins
+
+# installation trivy
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.45.0
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl
 
 USER jenkins
 
