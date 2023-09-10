@@ -97,6 +97,14 @@ pipeline {
         }
 
         success {
+            withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
+                sh '''
+                    git push --force origin HEAD:last-stable
+                '''
+            }
+        }
+
+        always {
             timeout(5) {
                     waitUntil {
                         script {
@@ -114,18 +122,11 @@ pipeline {
                         }
                     }
                 }
-            // supprimer le erreur
             sh '''
-                cd /home/jenkins/apache-jmeter-5.6.2/bin/erreur
+                cd /home/jenkins/apache-jmeter-5.6.2/bin
                 /home/jenkins/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
             '''
             perfReport '/home/jenkins/apache-jmeter-5.6.2/bin/report.jtl'
-
-            withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
-                sh '''
-                    git push --force origin HEAD:last-stable
-                '''
-            }
         }
     }
 }
