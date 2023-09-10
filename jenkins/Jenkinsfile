@@ -137,8 +137,8 @@ pipeline {
                 keepAll: true,
                 reportDir: '/home/jenkins',
                 reportFiles: 'code-scan.html, image-scan.html',
-                reportName: 'Code scan, image scan',
-                reportTitles: 'Trivy Scan'
+                reportName: 'Security Scan',
+                reportTitles: 'Code scan, Docker image scan'
             ]
 
             withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {

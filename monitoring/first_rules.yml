@@ -1,0 +1,19 @@
+groups:
+  - name: 'flask-alerts'
+    rules:
+      - alert: FlaskHighRequestDurationAlert
+        expr: flask_http_request_duration_seconds_sum{method="GET",path="/get_articles",status="200"} > 0.3
+        for: 1m
+        labels:
+          severity: 'high'
+        annotations:
+          summary: 'Durée de réponse élevée pour /get_articles (GET)'
+          description: 'La durée de réponse pour les requêtes GET vers /get_articles (code 200) dépasse 0.3 secondes.'
+      - alert: Flask404Errors
+        expr: flask_http_request_total{method="GET",status="404"} > 5
+        for: 1m
+        labels:
+          severity: 'severe'
+        annotations:
+          summary: "Nombre important d'erreurs 404"
+          description: "Le nombre d'erreurs 404 dépasse 5 erreurs au cours de la dernière minute."

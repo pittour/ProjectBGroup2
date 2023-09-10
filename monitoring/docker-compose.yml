@@ -1,0 +1,49 @@
+---
+version: '3'
+services:
+  prometheus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - prom-data:/etc/prometheus
+    networks:
+      - projetB
+
+  grafana:
+    image: grafana/grafana-enterprise:10.1.1-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - projetB
+
+  alertmanager:
+    image: prom/alertmanager:v0.23.0
+    container_name: alertmanager
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - "./alertmanager:/config"
+      - alertmanager-data:/data
+    command: --config.file=/config/alertmanager.yml --log.level=debug
+    networks:
+      - projetB
+
+networks:
+  projetB:
+    external: true
+
+volumes:
+  prom-data:
+    name: prom-data
+  alertmanager-data:
+    name: alertmanager-data
+  grafana-data:
+    name: grafana-data
