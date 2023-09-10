@@ -89,7 +89,7 @@ pipeline {
                 // Lancement de l'app
                 sh '''
                     cd /home/jenkins
-                    trivy image --format template --template "@html.tpl" -o image-scan.html microservice
+                    trivy image --timeout 10m --format template --template "@html.tpl" -o image-scan.html microservice
                 '''
                 echo "Microservice container scanned sucessfully"
             }
@@ -122,6 +122,7 @@ pipeline {
             sh('cp $PYTHON_ENV ./python/.env')
             sh '''
                 cd python/
+                docker image build -t microservice .
                 docker compose up -d
                 cd ../drupal
                 docker compose up -d
@@ -147,7 +148,7 @@ pipeline {
         }
 
         always {
-            timeout(5) {
+            timeout(10) {
                     waitUntil {
                         script {
                             try {
