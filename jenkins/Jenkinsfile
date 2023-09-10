@@ -135,6 +135,7 @@ pipeline {
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
+                reportDir: '/home/jenkins'
                 reportFiles: 'code-scan.html, image-scan.html',
                 reportName: 'Trivy Scan',
                 reportTitles: 'Trivy Scan'
