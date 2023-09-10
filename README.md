@@ -4,7 +4,9 @@
 * [Christoph Dufetre](https://github.com/Sparkly74)
 
 # Transformation de l'Application Monolithique en Micro-services
-  	Ce projet a pour objectif de transformer une application monolithique Drupal en une architecture de micro-services, permettant d'ajouter/supprimer des 		articles. Le projet utilise Python et Flask pour créer les services web, Docker pour la conteneurisation, Jenkins pour l'automatisation du pipeline 		CI/CD, et Drupal pour l'interface utilisateur
+Ce projet a pour objectif de transformer une application monolithique Drupal en une architecture de micro-services,
+permettant d'ajouter/supprimer des articles. Le projet utilise Python et Flask pour créer les services web, Docker pour la conteneurisation,
+Jenkins pour l'automatisation du pipeline CI/CD, et Drupal pour l'interface utilisateur
  ---------------------------------------------------------------------------------------------------------------------------------
 ## Prérequis
 
