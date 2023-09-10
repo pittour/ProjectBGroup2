@@ -85,12 +85,15 @@ pipeline {
             '''
             cleanWs()
             git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
+            sh('cp $DRUPAL_ENV ./drupal/.env')
+            sh('cp $PYTHON_ENV ./python/.env')
             sh '''
                 cd python/
                 docker compose up -d
                 cd ../drupal
                 docker compose up -d
             '''
+            echo "Rollbacked to the last stable version"
         }
 
         success {
