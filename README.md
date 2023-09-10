@@ -23,7 +23,7 @@ Le projet est organisé en plusieurs dossiers, chacun jouant un rôle essentiel 
 
 Le dossier "drupal" contient les fichiers nécessaires pour la conteneurisation de l'application Drupal à l'aide de Docker.
 
-#### Fichier Dockerfile
+#### Dockerfile
 
 Le Dockerfile permet de construire l'image Docker de l'application Drupal. Voici les principales étapes effectuées dans ce fichier :
 
@@ -35,11 +35,11 @@ Le Dockerfile permet de construire l'image Docker de l'application Drupal. Voici
 - Installation de Composer, Drush, et d'autres dépendances.
 - Génération des clés SSL et configuration d'Apache.
 
-#### Fichier docker-compose.yml
+#### Docker-compose.yml
 
 Le fichier docker-compose.yml définit les services Docker nécessaires pour exécuter l'application Drupal et la base de données MySQL. Il configure également les variables d'environnement à partir du fichier .env.
 
-#### Fichier .env
+#### .env
 
 Le fichier .env contient les variables d'environnement nécessaires pour configurer la base de données MySQL et d'autres paramètres liés à Drupal.
 
