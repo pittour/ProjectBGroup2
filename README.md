@@ -88,9 +88,54 @@ Le Dockerfile permet de construire l'image Docker du micro_service. Voici les pr
 - Gestion des autorisations pour l'utilisateur Nginx.
 - Génération des clés SSL et configuration de Nginx.
 - Mis en place des fichiers WAF.
-- Configuration de pare feu.
+- Configuration de pare feu UFW
+
+### UFW (Uncomplicated Firewall)
+
+Outil de gestion de pare-feu pour les systèmes Linux, y compris Debian. Il simplifie la configuration et la gestion des règles de pare-feu, ce qui le rend adapté à une utilisation sur des serveurs Debian. 
+ 
+
+AVANTAGES: 
+
+   - Sécurité : UFW nous permet de définir des règles de pare-feu pour limiter les connexions réseau entrantes et sortantes, ce qui renforce la sécurité de notre système. 
+
+   - Simplicité : Comme son nom l'indique, UFW est conçu pour être simple à utiliser. Il fournit une interface conviviale pour gérer les règles de pare-feu, ce qui le rend adapté aux utilisateurs novices. 
+
+   - Gestion centralisée : UFW peut simplifier la gestion de os règles de pare-feu en les regroupant en ensembles de règles (profiles) pour différents services ou applications. 
+
+   - Intégration Debian : UFW s'intègre bien avec d'autres applications et services, ce qui en fait un choix populaire pour la gestion des pare-feu. 
+
+   - Documentation abondante : En raison de sa popularité, UFW dispose d'une documentation étendue et d'une communauté active. Vous pouvez trouver de l'aide facilement en cas de besoin. 
+
+  
+
+INCONVENIENTS:  
+
+   - Limitation de complexité : Si vous avez besoin de règles de pare-feu très complexes et spécifiques, UFW peut s'avérer limité. Dans ce cas, vous pourriez préférer utiliser iptables directement. 
+
+    - Absence de fonctionnalités avancées : UFW est conçu pour simplifier la gestion des règles de pare-feu, mais il peut manquer certaines fonctionnalités avancées que vous trouveriez dans des pare-feu plus complets comme iptables. 
+
+    - Pas d'interface graphique : Bien qu'UFW propose une interface en ligne de commande simple, il n'a pas d'interface graphique officielle. Si vous préférez une interface graphique, vous devrez peut-être utiliser un outil tiers pour le gérer visuellement. 
+
+    Performance : Bien qu'UFW n'ait généralement pas un impact significatif sur les performances, l'ajout de règles de pare-feu complexes peut potentiellement entraîner une surcharge, surtout sur des systèmes à haute charge. 
+
+    - Possibilité de blocage accidentel : En raison de sa simplicité, il est possible de configurer UFW de manière incorrecte et de bloquer accidentellement des connexions réseau. Il est essentiel de tester soigneusement vos règles avant de les appliquer en production. 
+
+ 
+
+Tout ce qui n'est pas déclaré est bloqué par défaut :
+
+-Installation du package ufw 
+-Autorisation des port 443, 80 et 8000 pour le protocole TCP 
+-Blocage de toutes les requêtes entrantes sur les autres ports (profil default) 
+-Autorisation des requêtes en sortie (pour les ports autorisés) 
+-Possibilité de suivre les logs et de paramétrer en medium les logs (par défaut en low et stocké dans /var/log/ufw.log) 
+
 
 ### Nginx
+
+L’objectif est de paramétrer le service Nginx au plus près des besoins de notre micro-service pour garantir la confidentialité, l'intégrité et la disponibilité des données et des fonctionnalités que le microservice expose et pour le protéger contre : des injections SQL, des injections de script, des attaques à force brute, ... 
+
 
 FONCTIONNALITES : 
 
@@ -107,9 +152,38 @@ Protection contre les attaques DDoS : Nginx peut être utilisé pour atténuer l
 Réécriture d'URL : Nginx permet de réécrire les URL pour les rendre plus conviviales ou pour gérer les redirections. 
 
 Gestion des connexions : Nginx peut gérer efficacement un grand nombre de connexions simultanées, ce qui en fait un choix populaire pour les sites web à fort trafic. 
-#### nginx.conf
-Il permet le parametrage de notre reverse proxy en lien avec Gunicorne et la securisation de notre serveur via des en tete permettent la mis en place 
-de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
+
+
+
+#### CONFIGURATION DU FICHIER Nginx.conf
+
+Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des en tete permettant la mies en place de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
+
+_Gestion des ports https 443 et http 80 
+
+ _Redirection de toutes les demandes HTTP vers HTTPS en utilisant une réponse de redirection 301. 
+
+_Reverse proxy pour gérer les requêtes HTTP vers le micro-service Flask et Drupal pour cacher notre infrastructure et améliorer la sécurité, la gestion des connexions et la flexibilité de notre infrastructure. 
+
+_Configurer une zone de limitation de fréquence pour contrôler le nombre de requêtes par seconde que les adresses IP 
+
+_ Configurer des logs 
+
+_ Intégrer la mise en place des certificats SLL 
+
+_Directives SSL pour améliorer la sécurité (optionnel mais recommandé) 
+
+_Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
+
+_Vérifier l’utilisation de méthode de requête HTTP et retourner une réponse 405 (Méthode non autorisée) si elle n'est pas GET, HEAD ou POST. 
+
+_Configurer la gestion de la taille du corps de la requête, des délais et des délais de réponse. 
+
+_Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
+
+_Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress) 
+
+
 
 ### Web application Firewall 
 #### main.conf 
