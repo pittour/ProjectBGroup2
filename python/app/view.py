@@ -8,6 +8,10 @@ from flask import Blueprint
 bp = Blueprint("app", __name__)
 
 
+@app.route('/', methods=['GET'])
+def home():
+    return "Welcome to our flask microservice"
+
 @app.route('/get_articles', methods=['GET'])
 @cache.cached()
 @limiter.limit("30 per hour")
