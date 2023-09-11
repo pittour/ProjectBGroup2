@@ -181,11 +181,54 @@ _Configurer la gestion de la taille du corps de la requête, des délais et des 
 
 _Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
 
-_Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress) 
+_Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress):
+-------------------------------------------------------------------------------------------------------------------
+ proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off; 
+
+   location / { 
+        proxy_pass http://backend_server; 
+        proxy_cache my_cache; 
+        proxy_cache_valid 200 302 10m; 
+        proxy_cache_valid 404 1m; 
+    } 
+  -----------------------------------------------------------------------------------------------------------------  
 
 
 
-### Web application Firewall 
+### Web application Firewall ou WAF a
+
+ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques, y compris les injections SQL, les attaques par script entre sites (XSS), les tentatives d'exploitation de vulnérabilités et bien plus encore.
+
+    - Protection avancée contre les attaques : ModSecurity utilise des règles de sécurité spécifiques pour identifier et bloquer les tentatives d'attaques web, offrant ainsi une couche de protection supplémentaire pour vos applications web. 
+
+ 
+
+    - Détection en temps réel : ModSecurity surveille le trafic web entrant en temps réel et peut réagir rapidement aux menaces potentielles, ce qui permet de détecter et de bloquer les attaques dès qu'elles se produisent. 
+
+ 
+
+    - Personnalisable : Vous pouvez personnaliser les règles ModSecurity pour répondre aux besoins spécifiques de votre application web et de votre environnement. 
+
+ 
+
+    - Audit et journalisation : ModSecurity génère des journaux détaillés des activités, ce qui facilite la détection et la résolution des incidents de sécurité. 
+
+ 
+
+    - Prévention des vulnérabilités connues : En utilisant des règles de sécurité constamment mises à jour, ModSecurity peut aider à bloquer les attaques exploitant des vulnérabilités connues dans des applications web populaires. 
+
+ 
+
+   - Protection contre les bots malveillants : ModSecurity peut aider à bloquer le trafic de bots malveillants qui tentent de scruter ou de perturber votre site web. 
+
+ 
+
+    - Conformité aux normes de sécurité : L'ajout de ModSecurity peut contribuer à la conformité aux normes de sécurité telles que PCI DSS, HIPAA, et d'autres, en renforçant la sécurité de votre application web.
+    
+
+    Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project : : Core Rules Set ou CRS 3.3.5) ou personnalisées en fonction des besoins de notre application :
+
+
 #### main.conf 
 Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
 Le chemin de ce fichier apparait également dans le fichier nginx.conf   
