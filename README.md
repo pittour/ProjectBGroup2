@@ -235,10 +235,12 @@ ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider �
  
     - Conformité aux normes de sécurité : L'ajout de ModSecurity peut contribuer à la conformité aux normes de sécurité telles que PCI DSS, HIPAA, et d'autres, en renforçant la sécurité de votre application web.
 
+#### COMPILATION DU MODULE MODSECURITY POUR L'INTEGRER DANS NGINX VIA LE DOCKERFILE :
+
+![My Image](/images/nginx_modsecurity.png)
 
     
-PARAMETRAGES DES FICHIERS :
-
+#### PARAMETRAGES DES FICHIERS :
     
 Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project :Core Rules Set ou CRS 3.3.5)
 ou personnalisées en fonction des besoins de notre application, fichiers concernés :
