@@ -19,6 +19,10 @@ Jenkins pour l'automatisation du pipeline CI/CD, et Drupal pour l'interface util
 ## Structure du Projet
 Le projet est organisé en plusieurs dossiers, chacun jouant un rôle essentiel dans la transformation de l'application monolithique en micro-services.
 
+## Architecture du PROJET
+
+![My Image](/images/Architecture_Conteneurs.png)
+
 ### Drupal
 
 Le dossier "drupal" contient les fichiers nécessaires pour le déploiement de l'application Drupal en https.
@@ -183,14 +187,14 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 -Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
 
--Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress):
+-Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress)
 -------------------------------------------------------------------------------------------------------------------
  proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off; 
 --------------------------------------------------------------------------------------------------------------------  
 
 
 
-### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP 
+### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques, y compris les injections SQL, les attaques par script entre sites (XSS), les tentatives d'exploitation de vulnérabilités et bien plus encore.
 
@@ -208,10 +212,16 @@ ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider �
  
     - Conformité aux normes de sécurité : L'ajout de ModSecurity peut contribuer à la conformité aux normes de sécurité telles que PCI DSS, HIPAA, et d'autres, en renforçant la sécurité de votre application web.
 
+    
+PARAMETRAGES DES FICHIERS:
+
 
     
     Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project : : Core Rules Set ou CRS 3.3.5) ou personnalisées en fonction des besoins de notre application, fichiers concernés :
 
+### /etc/nginx/nginx.conf :
+
+![My Image](/images/modsecurity_on_nginx_conf.png)
 
 #### /etc/nginx/modsec/main.conf : 
 Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
@@ -222,8 +232,8 @@ Include /etc/nginx/modsec/coreruleset-3.3.5/crs-setup.conf
 Include /etc/nginx/modsec/coreruleset-3.3.5/rules/*.conf 
 
 
-#### modsecurity.conf
-/etc/nginx/modsec/modsecurity.conf : Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
+#### /etc/nginx/modsec/modsecurity.conf :
+Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
  
 # -- Rule engine initialization --------------------------------------------- 
 SecRuleEngine On 
@@ -239,7 +249,7 @@ SecRequestBodyNoFilesLimit 131072
 ETC  
 
 
-#### /etc/nginx/modsec/unicode.mapping  
+#### /etc/nginx/modsec/unicode.mapping :
 Le fichier Unicode Mapping est utilisé pour spécifier comment ModSecurity doit traiter les caractères Unicode dans les requêtes HTTP. Ce fichier de mappage est essentiel pour prendre en charge des encodages de caractères étendus et internationaux, garantissant que ModSecurity puisse détecter et bloquer les attaques qui utilisent ces encodages pour contourner les règles de sécurité. 
 
 
@@ -251,7 +261,7 @@ SecRule ARGS "@rce" "id:1001,phase:2,deny,status:403,msg:'SQL Injection Attempt'
 
 Cette règle, lorsqu'elle est activée, surveille les paramètres d'URL (ARGS) à la recherche de la chaîne "@rce" (qui pourrait indiquer une tentative d'exécution de commande à distance) et, si elle la détecte, elle bloque la requête avec un code d'état HTTP 403 (Interdit) et enregistre un message dans les journaux.
 
-![My Image]images/Test_injection_script.png)
+![My Image](/images/Script_injection.png)
 
 
 
