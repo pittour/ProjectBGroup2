@@ -15,13 +15,13 @@ def get_articles():
     product_data = fetch_articles()
     if not product_data:
         return jsonify({"error": "Failed to fetch articles from drupal"}), 500
-    
-    
+
+
 # Échappez les données de sortie à l'aide de bleach
     cleaned_data = bleach.clean(
         product_data, tags=[], attributes={}, styles=[], strip=True
     )
-    
+
     return cleaned_data
 
 
@@ -31,8 +31,8 @@ def add_article():
 
     title = request.json.get('title')
     content = request.json.get('content')
-    username = request.json.get('username') 
-    password = request.json.get('password') 
+    username = request.json.get('username')
+    password = request.json.get('password')
 
     # limites de caractères maximales
     max_title_length = 100
@@ -48,7 +48,7 @@ def add_article():
 
     if not title or not content or not username or not password:
         return jsonify({
-            "message": "Error : Title, Content, Username and/or Password not provided."
+            "message": "Title, Content, Username and/or Password not provided."
         }), 400
 
     # Échappez les données avant de les envoyer à Drupal
@@ -84,8 +84,8 @@ def add_article():
 @app.route('/delete_article/<article_id>', methods=['DELETE'])
 def supprimer_article(article_id):
 
-    username = request.json.get('username') 
-    password = request.json.get('password') 
+    username = request.json.get('username')
+    password = request.json.get('password')
 
     article = db.session.query(Article).filter_by(id=article_id).first()
 
