@@ -1,7 +1,7 @@
 ##Collaborateurs:
 * [Hadi Hassan](https://github.com/hassanhadi1)
 * [Kevin Billerache](https://github.com/pittour)
-* [Christoph Dufetre](https://github.com/Sparkly74)
+* [Christophe Dufetre](https://github.com/Sparkly74)
 
 # Transformation de l'Application Monolithique en Micro-services
 Ce projet a pour objectif de transformer une application monolithique Drupal en une architecture de micro-services,
@@ -135,11 +135,11 @@ INCONVENIENTS:
 
  Tout ce qui n'est pas déclaré est bloqué par défaut :
 
--Installation du package ufw 
--Autorisation des port 443, 80 et 8000 pour le protocole TCP 
--Blocage de toutes les requêtes entrantes sur les autres ports (profil default) 
--Autorisation des requêtes en sortie (pour les ports autorisés) 
--Possibilité de suivre les logs et de paramétrer en medium les logs (par défaut en low et stocké dans /var/log/ufw.log)
+- Installation du package ufw 
+- Autorisation des port 443, 80 et 8000 pour le protocole TCP 
+- Blocage de toutes les requêtes entrantes sur les autres ports (profil default) 
+- Autorisation des requêtes en sortie (pour les ports autorisés) 
+- Possibilité de suivre les logs et de paramétrer en medium les logs (par défaut en low et stocké dans /var/log/ufw.log)
 
 
  Objectif : Protéger notre serveur contre les attaques réseau telles que :
@@ -249,11 +249,14 @@ ou personnalisées en fonction des besoins de notre application, fichiers concer
 
 #### /etc/nginx/modsec/main.conf : 
 Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
-Le chemin de ce fichier apparait également dans le fichier nginx.conf
+Le chemin de ce fichier apparait également dans le fichier nginx.conf.
 
-Include /etc/nginx/modsec/modsecurity.conf 
-Include /etc/nginx/modsec/coreruleset-3.3.5/crs-setup.conf 
+Include /etc/nginx/modsec/modsecurity.conf
+
+Include /etc/nginx/modsec/coreruleset-3.3.5/crs-setup.conf
+
 Include /etc/nginx/modsec/coreruleset-3.3.5/rules/*.conf 
+
 
 
 #### /etc/nginx/modsec/modsecurity.conf :
@@ -277,12 +280,16 @@ SecRequestBodyNoFilesLimit 131072
 ETC  
 
 
+
 #### /etc/nginx/modsec/unicode.mapping :
 Le fichier Unicode Mapping est utilisé pour spécifier comment ModSecurity doit traiter les caractères Unicode dans les requêtes HTTP. Ce fichier de mappage est essentiel pour prendre en charge des encodages de caractères étendus et internationaux, garantissant que ModSecurity puisse détecter et bloquer les attaques qui utilisent ces encodages pour contourner les règles de sécurité. 
 
 
+
 #### ngx_http_modsecurity_module.so 
 Ce module Nginx permet d'intégrer ModSecurity dans le serveur web Nginx. Ce module étend les fonctionnalités de Nginx pour inclure des règles de sécurité avancées et la détection des attaques web. Il est souvent utilisé pour renforcer la sécurité des applications web hébergées sur des serveurs Nginx. 
+
+
 
 #### Exemple de règle ModSecurity (custom) pour bloquer les tentatives d'injection SQL dans les paramètres d'URL :
 SecRule ARGS "@rce" "id:1001,phase:2,deny,status:403,msg:'SQL Injection Attempt'"
@@ -349,26 +356,36 @@ Il est principalement utilisé pour surveiller la santé et les performances des
 - Stockage des métriques dans une base de données temps réel appelée "Time-Series Database".
 - Possibilité de définir des règles d'alerte basées sur des métriques.
 
+
+
 #### Grafana (en binôme avec Prometheus)
 
-Grafana se connecte à prometheus et permet de crére des dashboards à partir des metriques recuperées.
+Grafana se connecte à prometheus et permet de créer des dashboards à partir des metriques recuperées.
 
 - Visualisation et Tableaux de bord : Le rôle principal de Grafana est de permettre aux utilisateurs de créer des tableaux de bord personnalisés pour visualiser les données provenant de différentes sources, y compris Prometheus.
 Grafana offre une interface utilisateur intuitive pour créer des graphiques, des jauges, des tableaux de bord, et plus encore. Les utilisateurs peuvent personnaliser ces tableaux de bord pour afficher les métriques spécifiques qui les intéressent.
 
 - Interrogation des données : Grafana permet aux utilisateurs d'interroger les données stockées dans Prometheus à l'aide de son propre langage de requête.
-Vous pouvez créer des requêtes pour extraire des métriques spécifiques, appliquer des agrégations, filtrer les données et afficher les résultats dans des graphiques interactifs.
+On peutcréer des requêtes pour extraire des métriques spécifiques, appliquer des agrégations, filtrer les données et afficher les résultats dans des graphiques interactifs.
 
 - Alerting : Grafana offre des fonctionnalités d'alerte qui permettent aux utilisateurs de définir des règles d'alerte basées sur les données Prometheus.
 Lorsque les conditions spécifiées dans les règles d'alerte sont remplies, Grafana peut déclencher des alertes qui sont envoyées par e-mail, Slack, ou d'autres canaux de notification.
 
-#### Alert manager 
+
+
+#### Alertmanager 
 
 Envoie les alertes par Email
 
+Exemple de setup de redirection d'alerte sur un email
+
+![My Image](/images/alertsmanager.png)
+
+![My Image](/images/Prometheus.png)
 
 
-### Working progress 
+
+### Working in progress 
 
 - Utilisation de OWASP ZAP 2.13.0 pour detecter les failles de securité.  https://www.zaproxy.org/
 
