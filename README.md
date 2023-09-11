@@ -19,7 +19,7 @@ Jenkins pour l'automatisation du pipeline CI/CD, et Drupal pour l'interface util
 ## Structure du Projet
 Le projet est organisé en plusieurs dossiers, chacun jouant un rôle essentiel dans la transformation de l'application monolithique en micro-services.
 
-### Dossier Drupal
+### Drupal
 
 Le dossier "drupal" contient les fichiers nécessaires pour le déploiement de l'application Drupal en https.
 
@@ -49,7 +49,7 @@ Il faut utiliser le fichier .env.exemple pour definir les variables necessaires.
 installe l'application drupal, et configure les modules necessaires 
 
 
-### Dossier python 
+### Micro Service (Python)  
 ce dossier contient le micro service flask, qui effectue des operations CRUD sur les article du blog drupal
 
 #### init.py 
@@ -75,7 +75,57 @@ ces fichiers contiennent les tests unitaire de notre application.
 #### config-gunicorn.py
 ce fichier expose les metriques de suivie de notre application sur le port 9200 afin de les relier à Prometheus.
 
+#### requirements.txt
+Contient la liste des dependances necessaire à l'application flask.
 
+#### Dockerfile
+
+Le Dockerfile permet de construire l'image Docker du micro_service. Voici les principales étapes effectuées dans ce fichier :
+
+- Utilisation d'une image de base officielle de python3 avec Debian.
+- Installation des dépendances.
+- Copie des fichiers du micro_service.
+- Gestion des autorisations pour l'utilisateur Nginx.
+- Génération des clés SSL et configuration de Nginx.
+- Mis en place des fichiers WAF.
+- Configuration de pare feu.
+
+### Nginx
+
+FONCTIONNALITES : 
+
+Serveur web statique : Nginx peut être utilisé pour servir des fichiers HTML, CSS, JavaScript et d'autres fichiers statiques, ce qui en fait une excellente option pour l'hébergement de sites web. 
+
+Reverse Proxy : Nginx peut agir en tant que proxy inverse pour rediriger le trafic vers différents serveurs en fonction de règles de routage, ce qui permet de gérer la répartition de la charge et d'améliorer la disponibilité du service. 
+
+Terminaison SSL/TLS : Nginx peut gérer la terminaison SSL/TLS pour sécuriser les connexions entre les clients et les serveurs. 
+
+Cache HTTP : Nginx peut mettre en cache des réponses HTTP pour réduire la charge du serveur et améliorer les performances. 
+
+Protection contre les attaques DDoS : Nginx peut être utilisé pour atténuer les attaques DDoS en filtrant le trafic malveillant. 
+
+Réécriture d'URL : Nginx permet de réécrire les URL pour les rendre plus conviviales ou pour gérer les redirections. 
+
+Gestion des connexions : Nginx peut gérer efficacement un grand nombre de connexions simultanées, ce qui en fait un choix populaire pour les sites web à fort trafic. 
+#### nginx.conf
+Il permet le parametrage de notre reverse proxy en lien avec Gunicorne et la securisation de notre serveur via des en tete permettent la mis en place 
+de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
+
+### Web application Firewall 
+#### main.conf 
+Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
+Le chemin de ce fichier apparait également dans le fichier nginx.conf   
+
+#### modsecurity.conf 
+Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
+
+#### unicode.mapping 
+Le fichier Unicode Mapping est utilisé pour spécifier comment ModSecurity doit traiter les caractères Unicode dans les requêtes HTTP. Ce fichier de mappage est essentiel pour prendre en charge des encodages de caractères étendus et internationaux, garantissant que ModSecurity puisse détecter et bloquer les attaques qui utilisent ces encodages pour contourner les règles de sécurité. 
+
+#### ngx_http_modsecurity_module.so 
+Ce module Nginx permet d'intégrer ModSecurity dans le serveur web Nginx. Ce module étend les fonctionnalités de Nginx pour inclure des règles de sécurité avancées et la détection des attaques web. Il est souvent utilisé pour renforcer la sécurité des applications web hébergées sur des serveurs Nginx. 
+
+### 
 
 
 
