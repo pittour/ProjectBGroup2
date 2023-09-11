@@ -186,9 +186,6 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 -Configurer la gestion de la taille du corps de la requête, des délais et des délais de réponse. 
 
 -Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
-
-- Configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
- proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off; 
   
 
 
@@ -268,26 +265,6 @@ Cette règle, lorsqu'elle est activée, surveille les paramètres d'URL (ARGS) �
 
 
 
-
-## FAIL2BAN (WORK IN PROGRESS)
-Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à partir de seuil que l'on définit en amont.
-
-## PENTESTING :
-
- 
-
-### Utilisation de OWASP ZAP 2.13.0 pour tester l’exposition de notre Microservice après lui avoir donné une adresse IP sur le WAN via Ngrok.    https://www.zaproxy.org/  
-
- 
-
-### Utilisation de https://securityheaders.com/ pour tester le filtrage des requêtes. 
-
- 
-
-### Utilisation de NMAP pour scanner les ports de notre serveur Nginx.
-
-
-
 ### Jenkins 
 #### Dockerfiles
 
@@ -341,6 +318,38 @@ Grafana se connecte à prometheus et permet de crée des dashboards à partir de
 
 #### Alert manager 
 Envoie les alertes par Email
+
+
+### Working progress 
+- Utilisation de OWASP ZAP 2.13.0 pour detecter les failles de securité.  https://www.zaproxy.org/
+
+- Utilisation du Header Nginx https://securityheaders.com/ pour tester le filtrage des requêtes.
+ 
+- Utilisation de NMAP pour scanner les ports de notre serveur Nginx.
+ 
+- Utilisation de Fail2ban : Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à  
+  partir de seuil que l'on définit en amont.
+
+- Dans le fichier Nginx.conf : configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
+ proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off;
+
+- Interface graphique
+  
+- load balancer
+
+- Outil de détection de mise à jour des conteneurs comme Watchtower
+
+- Radon afin d'analyser la complexité du code et les possibilité de refactorisation
+
+  ### Difficultés rencontrées
+  - Répartition des tâches au départ lié à la visibilité sur le projet
+  - Développement du micro-service
+  - Déploiement automatique de Drupal qui nécessite Drush (Drupal Shell)
+  - Tentative de développement d'une interface graphique
+  - Durée du projet : durée réduite pour la mise en place d'un tel projet. Beaucoup de temps passé sur le développement et moins sur la partie devops.
+
+
+ 
 
 
 
