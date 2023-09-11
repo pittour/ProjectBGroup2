@@ -187,10 +187,9 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 -Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
 
--Configurer une zone mémoire de cache pour réduire la charge du serveur (work in progress)
--------------------------------------------------------------------------------------------------------------------
+- Configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
  proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off; 
---------------------------------------------------------------------------------------------------------------------  
+  
 
 
 
@@ -221,7 +220,7 @@ PARAMETRAGES DES FICHIERS:
 
 ### /etc/nginx/nginx.conf :
 
-![My Image](/images/modsecurity_on_nginx_conf.png)
+![My Image](/images/modsecurity_on.png)
 
 #### /etc/nginx/modsec/main.conf : 
 Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
@@ -235,15 +234,19 @@ Include /etc/nginx/modsec/coreruleset-3.3.5/rules/*.conf
 #### /etc/nginx/modsec/modsecurity.conf :
 Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
  
-# -- Rule engine initialization --------------------------------------------- 
-SecRuleEngine On 
-# -- Request body handling --------------------------------------------------- 
-SecRequestBodyAccess On 
-# The location where ModSecurity stores temporary files 
-SecTmpDir /tmp/ 
-# The location where ModSecurity will keep its persistent data. 
-SecDataDir /tmp/ 
-# Maximum request body size we will accept for buffering. 
+Rule engine initialization  
+SecRuleEngine O 
+
+Request body handling 
+SecRequestBodyAccess On
+
+The location where ModSecurity stores temporary files 
+SecTmpDir /tmp/
+
+The location where ModSecurity will keep its persistent data. 
+SecDataDir /tmp/
+
+Maximum request body size we will accept for buffering. 
 SecRequestBodyLimit 13107200 
 SecRequestBodyNoFilesLimit 131072 
 ETC  
