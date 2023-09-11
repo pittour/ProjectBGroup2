@@ -22,7 +22,7 @@ def create_article(username, password, json):
     return response
 
 
-def delete_article(id):
+def delete_article(id, username, password):
     username = config('DRUPAL_API_USER')
     password = config('DRUPAL_API_PASS')
     response = requests.delete(f'{DRUPAL_API_URL}/node/article/{id}',
