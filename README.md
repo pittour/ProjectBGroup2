@@ -21,7 +21,7 @@ Le projet est organisé en plusieurs dossiers, chacun jouant un rôle essentiel 
 
 ## Architecture du PROJET
 
-![My Image](/images/Architecture_Conteneurs.png)
+![My Image](/images/Diagramme.png)
 
 ### Drupal
 
