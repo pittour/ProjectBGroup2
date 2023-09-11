@@ -21,7 +21,7 @@ Le projet est organisé en plusieurs dossiers, chacun jouant un rôle essentiel 
 
 ### Dossier Drupal
 
-Le dossier "drupal" contient les fichiers nécessaires pour la conteneurisation de l'application Drupal à l'aide de Docker.
+Le dossier "drupal" contient les fichiers nécessaires pour le déploiement de l'application Drupal en https.
 
 #### Dockerfile
 
@@ -37,11 +37,43 @@ Le Dockerfile permet de construire l'image Docker de l'application Drupal. Voici
 
 #### Docker-compose.yml
 
-Le fichier docker-compose.yml définit les services Docker nécessaires pour exécuter l'application Drupal et la base de données MySQL. Il configure également les variables d'environnement à partir du fichier .env.
+Le fichier docker-compose.yml définit les services Docker nécessaires pour exécuter l'application Drupal et sa base de données MySQL. Il configure également les variables d'environnement à partir du fichier .env.
 
 #### .env
 
 Le fichier .env contient les variables d'environnement nécessaires pour configurer la base de données MySQL et d'autres paramètres liés à Drupal.
+Il faut utiliser le fichier .env.exemple pour definir les variables necessaires. 
+
+### entrypoint.sh 
+
+installe l'application drupal, et configure les modules necessaires 
+
+
+### Dossier python 
+ce dossier contient le micro service flask, qui effectue des operations CRUD sur les article du blog drupal
+
+#### init.py 
+c'est le point d'entrée de l'application.
+nous utilison une bas de donnée SQLITE gerée par SQLALCHEMY afin d'enregistrer les operation effectuer via le micro service.
+Flask_cors nous permet de definir les serveurs pouvant se connecter à notre micro_service.
+Flask_caching avec Redis nous permet de mettre en cache les resultat d'une requete.
+Flask_limiteur limite le nombre de requete effectuer par un utilisateur sur une period de temps donnée.
+
+#### view.py 
+Il defini les endpoints de notre API Flask :
+/get_articles : permet de recuperer la liste des articles depuis drupal.
+/add_article : permet d'ajouter un nouvel article à drupal.
+/delet_article/<ID> : permet de suprimer un article.
+
+#### .env
+Le fichier .env contient les variables d'environnement nécessaires pour configurer le micro_service.
+Il faut utiliser le fichier .env.exemple pour definir les variables necessaires. 
+
+#### tests
+ces fichiers contiennent les tests unitaire de notre application.
+
+#### config-gunicorn.py
+ce fichier expose les metriques de suivie de notre application sur le port 9200 afin de les relier à Prometheus.
 
 
 
