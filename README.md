@@ -122,7 +122,7 @@ INCONVENIENTS:
     - Possibilité de blocage accidentel : En raison de sa simplicité, il est possible de configurer UFW de manière incorrecte et de bloquer accidentellement des connexions réseau. Il est essentiel de tester soigneusement vos règles avant de les appliquer en production. 
 
  
-![My Image](/images/UFW setup.png)
+![My Image](/images/UFWsetup.png)
 
 
 Tout ce qui n'est pas déclaré est bloqué par défaut :
@@ -251,7 +251,7 @@ SecRule ARGS "@rce" "id:1001,phase:2,deny,status:403,msg:'SQL Injection Attempt'
 
 Cette règle, lorsqu'elle est activée, surveille les paramètres d'URL (ARGS) à la recherche de la chaîne "@rce" (qui pourrait indiquer une tentative d'exécution de commande à distance) et, si elle la détecte, elle bloque la requête avec un code d'état HTTP 403 (Interdit) et enregistre un message dans les journaux.
 
-![My Image]/images/Test injection script.png)
+![My Image]images/Test_injection_script.png)
 
 
 
