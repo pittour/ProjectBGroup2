@@ -288,301 +288,61 @@ Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur
 
 
 
+### Jenkins 
+#### Dockerfiles
 
+Les Dockerfiles permettent de construire les images Docker de jenkins, une pour le noeud controleur et une pour l'agent jenkins qui vas excuter le pipline, voici les principales étapes effectuées dans ces fichiers :
 
+- Utilisation d'une image de base officielle de jenkins et jenkins agent.
+- Installation des dépendances.
+- Gestion des autorisations pour l'utilisateur Jenkins.
+- Copie des fichiers pour les tests de charge.
 
+#### charge.jmx
+Ce fichier definit le test de charges qui sera réaliser dans la pipeline.
+![jmeter](https://github.com/Sparkly74/ProjectBGroup2/assets/84808314/8f037a3b-8eec-41db-8bed-761767e32cfc)
 
+### Configuration de jenkins 
+activer les plugins suivant : 
+- performence
+- Docker
+- HTML Publicher
+- HTTP request
+- Git
 
+Crée les credentials suivant : 
+- secret file pour le .env de drupal
+- secret file pour le .env de micro service
+- password pour le token gitHub
+- SSH pour l'agent jenkins
 
-******************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************
-******************************************************************************************************
+Configurer le node de l'agent jenkins depuis l'interface administrer jenkins.
 
----------------------------------------------------------------------------------------------------------------------------------
+### La pipeline 
+elle se trouve dans le jenkinsfile qui est lancer depuis jenkins.
+elle : 
+- verifie les bonnes pratiques de code 
+- scanne la securité du code du micro service
+- lance les tests unitaire
+- en cas de succés elle lance le build puis le run de l'application
+- à la fin deux options sont possible :
+  - en cas de reussite un test de charge est effectuer un rapport de securité générer et le code est automatiqument push sur la branche last-stable de gitHub
+  - en cas d'echec un rollback est effectuer afin d'annuler le deploielent en cours et deployer la branche last-stable.
 
-[From Monolith to Microservices: A Guide To Replatforming](https://fabric.inc/blog/commerce/from-monolith-to-microservices)
+Les rapports de test de charge et de securité sont ensuite disponible dans un onglet sur jenkins.
 
+### Monitoring 
 
----------------------------------------------------------------------------------------------------------------------------------
+#### Prometheus 
+Prometheus se connecte aux metriques du micro service via le fichier prometheus.yml et permet de configurer des alertes, grace au fichier first_rules.yml.
 
-## II ) CHOIX DE L'APPLICATION CMS A MIGRER : DRUPAL
+#### Grafana
+Grafana se connecte à prometheus et permet de crée des dashboards à partir des metriques recuperées 
 
-![My Image](drupal-architecture.jpg)
+#### Alert manager 
+Envoie les alertes par Email
 
-### PRESENTATION ET ANALYSE DE L'ARCHITECTURE:
 
-Users − These are the users on the Drupal community. The user sends a request to a server using Drupal CMS and web browsers, search engines, etc. acts like clients.
-
-Administrator − Administrator can provide access permission to authorized users and will be able to block unauthorized access. Administrative account will be having all privileges for managing content and administering the site.
-
-Drupal − Drupal is a free and open source Content Management System (CMS) that allows organizing, managing and publishing your content and is built on PHP based environments. Drupal CMS is very flexible and powerful and can be used for building large, complex sites. It is very easy to interact with other sites and technologies using Drupal CMS. Further, you will be able to handle complex forms and workflows.
-
-PHP − Drupal uses PHP in order to work with an application which is created by a user. It takes the help of web server to fetch data from the database. PHP memory requirements depend on the modules which are used in your site. Drupal 6 requires at least 16MB, Drupal 7 requires 32MB and Drupal 8 requires 64MB.
-
-Web Server − Web server is a server where the user interacts and processes requests via HTTP (Hyper Text Transfer Protocol) and serves files that form web pages to web users. The communication between the user and the server takes place using HTTP. You can use different types of web servers such as Apache, IIS, Nginx, Lighttpd, etc.
-
-Database − Database stores the user information, content and other required data of the site. It is used to store the administrative information to manage the Drupal site. Drupal uses the database to extract the data and enables to store, modify and update the database.
-
----------------------------------------------------------------------------------------------------------------------------------
-# JOUR 2
-
-## AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 2 + 3)
-
-CONTENEURISATION AVEC DOCKER COMPOSE :
- - UN CONTENEUR MYSQL
- - UN CONTENEUR DRUPAL
-
-Image docker: docker pull drupal:7.98-php8.2-fpm-bullseye
-
-Fichier Docker Compose : Docker compose drupal + msql.png
-
-##  IDENTIFICATION DES DIFFERENTES FONCTIONNALITES MIGRABLES :
-
-### 1- Gestion d'utilisateurs et d'authentification :
-      Créer un micro-service pour gérer l'authentification, l'inscription des utilisateurs et la gestion des profils. Cela 
-      pourrait permettre aux utilisateurs de s'authentifier de manière centralisée, même si d'autres parties de l'application 
-      sont déployées en micro-services distincts.
-### 2- Notifications : 
-       Créer un micro-service pour gérer l'envoi de notifications par e-mail, SMS ou d'autres canaux.
-### 3- Analyse et suivi :
-       Créer un micro-service pour collecter et analyser les données de suivi et les statistiques d'utilisation.
-       
-
-## MISE EN PLACE D'UN MICRO SERVICE : AJOUTER UN ARTICLE SUR LE SITE EN DEMO
-
-### Extension Services Web: Installation du module JSON:API  pour exposer les entités en tant qu'API web JSON:API-specification-compliant
-
-http://localhost:8080/jsonapi
-
-http://localhost:8080/jsonapi/node/article
-
-### Extension Services Web: Installation du module HTTP Basic Authentification:
-Installé
-	Nom
-	Description
-	HTTP Basic Authentication 	
-Provides an HTTP Basic authentication provider.
-Nom système : basic_auth
-Version : 10.1.2
- 
-
-### Authentication API overview (https://www.drupal.org/docs/8/api/authentication-api/overview)
-
-Setup Access Token / OAuth Based Authentication (https://www.drupal.org/docs/contributed-modules/api-authentication/setup-access-token-oauth-based-authentication)
-
-Installation du module : RESTful Web Services (Drupal REST & JSON API Authentication)
-
-Drupal REST & JSON API Authentication module restricts and secures unauthorized access to your Drupal site APIs using different authentication methods including Basic Authentication , API Key Authentication , JWT Authentication , OAuth Authentication , External / Third-Party Provider Authentication, etc:
-
- CHOIX DE L'AUTHENTIFICATION => BASIC AUTHENTIFICATION
-
-A REST API defines a set of functions in which developers can perform requests such as GET, POST, PUT, PATCH, DELETE, and receive responses via HTTP protocol. For example, when a client application calls a Drupal API to fetch a specific user (the resource), the API will return the state of that user, including their name, email, user id, etc.
-
-
-Routing system overview (https://www.drupal.org/docs/drupal-apis/routing-system/routing-system-overview)
-
----------------------------------------------------------------------------------------------------------------------------------
-JOUR 3:
-
-### FIN DE L'AUTOMATISATION  DE L'INSTALLATION DE DRUPAL ( JOUR 2 + 3)
-
-
-### CREATION DU CODE PYTHON SOUS FLASK DU MICRO-SERVICE permettant d'ajouter un article au site.
-
-
-### UTILISATION DE THUNDERBIRD SOUS VSCODE POUR TESTER L'API DU MICROSERVICE (GET, POST)
-
-
----------------------------------------------------------------------------------------------------------------------------------
-JOUR 4:
-
-### FEUILLE DE ROUTE POUR LE DEVELOPPEMENT DU MICRO SERVICE :
-
-1. Configuration de l'environnement :
-Installation de Flask, SQLAlchemy et autres dépendances nécessaires.
-Configuration de la base de données pour le micro-service.
-2. Connexion au monolithe Drupal :
-Utilisation de la bibliothèque requests pour intégrer l'API REST de DRUPAL.
-3. Définition du modèle de données :
-Modélisation de la commande dans SQLAlchemy.
-4. Implémentation des routes :
-Création de routes pour l'ajout au panier, la vérification des disponibilités, et
-d'autres actions nécessaires.
-5. Gestion des erreurs :
-Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, les
-timeouts, etc.
-6. Optimisation et sécurité :
-Mise en cache des réponses fréquemment utilisées.
-Gestion des taux d'appels à l'API pour respecter les limites imposées.
-
-
-## DEBUT PHASE DE CREATION DES TESTS MICRO_SERVICE.PY AVEC UNITEST
-## Test d'Intégration : Ajout d'un Article
-
-Ce test d'intégration vise à vérifier la fonctionnalité d'ajout d'un article dans le micro-service. Il assure que l'API réagit correctement aux demandes POST pour créer de nouveaux articles en vérifiant la création réussie de l'article et en inspectant ses détails.
-
-**Description du Test :**
-
-1. **Configuration de la Base de Données :** Le test configure une base de données SQLite pour s'assurer que l'environnement de test est propre et isolé.
-
-2. **Ajout d'un Article :** Le test envoie une requête POST à l'endpoint `/add_article` avec des données JSON simulées pour un nouvel article, comprenant un titre et un contenu.
-
-3. **Validation de la Réponse :** Il vérifie que la réponse HTTP est conforme à la norme (statut 201 - Créé avec succès) et que le message de réponse indique "Article added successfully".
-
-4. **Vérification en Base de Données :** Le test interroge la base de données pour s'assurer qu'un nouvel article a été créé avec les détails attendus, notamment le titre et le contenu.
-
-**Raison du Test :**
-
-Ce test garantit que le micro-service est capable de gérer avec succès les demandes d'ajout d'articles, qu'il stocke correctement les données dans la base de données, et qu'il renvoie une réponse appropriée pour informer le client de la réussite de l'opération.
-
-## Test d'Intégration : Suppression d'un Article
-
-Ce test d'intégration vise à vérifier la fonctionnalité de suppression d'un article dans le micro-service. Il s'assure que l'API est capable de gérer les demandes DELETE pour supprimer des articles existants de manière fiable.
-
-**Description du Test :**
-
-1. **Configuration de la Base de Données :** Le test configure une base de données SQLite pour garantir un environnement de test propre et isolé.
-
-2. **Ajout d'un Article à Supprimer :** Le test ajoute d'abord un article factice à la base de données en envoyant une requête POST à l'endpoint `/add_article`.
-
-3. **Suppression de l'Article :** Ensuite, le test envoie une requête DELETE à l'endpoint `/node/article/<article_id>` pour supprimer l'article précédemment ajouté.
-
-4. **Validation de la Réponse :** Il vérifie que la réponse HTTP renvoyée est conforme à la norme (statut 200 - OK).
-
-5. **Vérification en Base de Données :** Le test interroge la base de données pour s'assurer que l'article a bien été supprimé.
-
-**Raison du Test :**
-
-Ce test garantit que le micro-service peut gérer correctement les demandes de suppression d'articles, en veillant à ce que les données soient supprimées de la base de données et que le système renvoie une réponse appropriée. Cela garantit également que le système gère correctement les opérations de suppression, ce qui est essentiel pour maintenir des données cohérentes et éviter les erreurs.
-
-
-## DEFINITION DU MODELE DE DONNEES : Modélisation dans SQLAlchemy.
-
-SQLAlchemy est un outil fondé sur le principe de mapping objet-relationnel (ORM).
-
-SQLAlchemy facilite donc la liaison entre Python et les bases de données SQL en convertissant automatiquement les appels de classes de Python en instructions SQL. Il est donc possible de requêter les bases de données relationnelles de manière pythonique.
-
-Notre code python sera le même pour tous les environnements et dialectes SQL tels que SQlite, PostGReSQL ou Oracle. Cela améliore l’interopérabilité avec le reste de notre application et on peut ainsi changer de système de base de données sans avoir à changer son code.
-
-L’écriture des contraintes sur le schéma des tables directement depuis notre script python.
-
-Au lieu de jongler entre les différents dialectes SQL, le toolkit open source SQL Alchemy nous permet ainsi de rationaliser notre workflow et de traiter efficacement nos données depuis le langage Python.
-
-
-Pros and Cons of SQL Alchemy
-
-Pros
-
-    Alchemy gives abstraction to the backend database. So, an average developer does not have to worry about SQL statements.
-    The transition to other databases becomes easier.
-    Queries are optimized and may work better than SQL if you wrote it yourself unless you are an SQL veteran.
-
-Cons
-
-    There could be instances where Alchemy might become inefficient. Therefore, knowing SQL is always desired.
-    Knowing what is happening under the hood often gives an edge. So, it is not a complete replacement for SQL.
-
-
-## 5. GESTION DES ERREURS (EN COURS)
-Ajout de gestionnaires d'erreurs pour traiter les réponses non 200, etc...
-
-
-
----------------------------------------------------------------------------------------------------------------------------------
-## JOUR 5:
-
-## OPTIMISATION DU MICRO-SERVICE
-
-### 1) Mise en cache des réponses fréquemment utilisées avec REDIS
-
-### 2 ) Gestion des taux d'appels à l'API pour respecter les limites imposées avec Flask-Limiter
-
-## SECURISATION DU MICRO-SERVICE
-
-### 1 ) Installation de Python-Decouple
-Pour sécuriser la clé API de DRUPAL  : Plutôt que de la stocker dans config.py ,
-utilisez des variables d'environnement. Vous pouvez utiliser python-decouple pour
-aider à gérer cela.
-
-### Création Docker File sur une base de déploiement Gunicorn pour notre Micro-Service
-
-### ETUDE MISE EN PLACE D'UN CONTENEUR NGINX (pour sécuriser les échanges entre les utilisateurs et notre DRUPAL):
-
-Création en cours du fichier nginx.conf qui sera injecté dans le docker conteneur NGINX
-
-
-----------------------------------------------------------------------------------------------------------------------------------------
- ## JOUR 6:
-
-### INSTALLATION DU CERTIFICAT SSL SUR LE CONTENEUR DRUPAL
-  
- ### MISE EN PLACE DE LA BASE DE DONNEES AVEC SQL ALCHEMY
-
- ### TRACKING DE L'ID DES REQUETES DANS DRUPAL
-
- ----------------------------------------------------------------------------------------------------------------------------------------
-## JOUR 7  : OBJECTIFS
-
-### FINIR LA ROUTE DE LA SECONDE PARTIE DU MICRO-SERVICE PERMETTANT DE DELETE UN ARTICLE (validé)
-
-### DOCKERISER LE MICROSERVICE (validé)
-
-### INSTALLER LE SERVICE NGINX SUR LE CONTENEUR DU MICRO SERVICE (EN COURS): installation de procps pour superviser les services (gunicorn, nginx,...) ==> pas de systemctl (validé)
-
-### CREATION D'UN FRONT END POUR NOTRE MICRO-SERVICE : GRAPHICAL USER INTERFACE (HADI) => Ajout d'article / Suppression d'article (EN COURS)
-
-----------------------------------------------------------------------------------------------------------------------------------------
-## JOUR 8 :
-
-### CONFIGURER LE CERTIFICAT SUR LE CONTENEUR DU MICRO SERVICE
-
-### PROJECTION AUTOMATISATION VIA JENKINS CI/CD
-
-OPTION 1 : utilisation de la méthode DinD (Docker in Docker) : création d'un conteneur jenkins qui lui même doit créer les conteneurs drupal, mysql, microservice.
-(https://www.jenkins.io/doc/book/installing/docker/)
-
-Problèmes rencontrés: difficulté réseau et reconnaissance des ports entre les différents conteneurs.
-Abandon de cette option
-
-----------------------------------------------------------------------------------------------------------------------------------------
-## JOUR 9 :
- 
-### PROJECTION AUTOMATISATION VIA JENKINS CI/CD (SUITE)
-
-NOUVELLE METHODE:
-Activer l’utilisation du démon Docker dans le conteneur Jenkins
-
-Connexion de l'interface de ligne de commande Docker dans le conteneur Jenkins au démon Docker sur la machine hôte en fixant la prise du démon dans le conteneur avec l’indicateur -v. On ajoute l’argument suivant : /var/run/docker.sock:/var/run/docker.sock lorsqu'on exécute l’image :
-
-docker run -it -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
-
-
-Fichier dockerfile de notre JENKINS CUSTOM:
-
-FROM jenkins/jenkins:lts
-USER root
-RUN apt-get update -qq \
-    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-RUN add-apt-repository \
-"deb [arch=amd64] https://download.docker.com/linux/debian \
-$(lsb_release -cs) \
-stable"
-RUN apt-get update  -qq \
-    && apt-get -y install docker-ce
-RUN usermod -aG docker jenkins
-RUN apt-get install -y python3 python3-pip python3-venv
-
-
- 
- 
- 
- EN ATTENTE : TEST ADDITIONNEL Utiliser pyflakes 3.1.0 (pip install pyflakes)
-
- ----------------------------------------------------------------------------------------------------------------------------------------
 
 
  
