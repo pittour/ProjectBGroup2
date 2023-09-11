@@ -161,7 +161,7 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 - Gestion des ports https 443 et http 80 
 
- -Redirection de toutes les demandes HTTP vers HTTPS en utilisant une réponse de redirection 301. 
+-Redirection de toutes les demandes HTTP vers HTTPS en utilisant une réponse de redirection 301. 
 
 -Reverse proxy pour gérer les requêtes HTTP vers le micro-service Flask et Drupal pour cacher notre infrastructure et améliorer la sécurité, la gestion des connexions et la flexibilité de notre infrastructure. 
 
@@ -188,47 +188,85 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 
 
-### Web application Firewall ou WAF a
+### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP 
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques, y compris les injections SQL, les attaques par script entre sites (XSS), les tentatives d'exploitation de vulnérabilités et bien plus encore.
 
-    - Protection avancée contre les attaques : ModSecurity utilise des règles de sécurité spécifiques pour identifier et bloquer les tentatives d'attaques web, offrant ainsi une couche de protection supplémentaire pour vos applications web. 
+    - Protection avancée contre les attaques : Utilisation des règles de sécurité spécifiques pour identifier et bloquer les tentatives d'attaques web, offrant ainsi une couche de protection supplémentaire pour vos applications web. 
 
+     - Détection en temps réel : Surveillance du trafic web entrant en temps réel et peut réagir rapidement aux menaces potentielles, ce qui permet de détecter et de bloquer les attaques dès qu'elles se produisent. 
  
-    - Détection en temps réel : ModSecurity surveille le trafic web entrant en temps réel et peut réagir rapidement aux menaces potentielles, ce qui permet de détecter et de bloquer les attaques dès qu'elles se produisent. 
-
- 
-    - Personnalisable : Vous pouvez personnaliser les règles ModSecurity pour répondre aux besoins spécifiques de votre application web et de votre environnement. 
-
+    - Personnalisable : Possibilité de personnaliser les règles ModSecurity pour répondre aux besoins spécifiques de votre application web et de votre environnement. 
  
     - Audit et journalisation : ModSecurity génère des journaux détaillés des activités, ce qui facilite la détection et la résolution des incidents de sécurité. 
  
-
     - Prévention des vulnérabilités connues : En utilisant des règles de sécurité constamment mises à jour, ModSecurity peut aider à bloquer les attaques exploitant des vulnérabilités connues dans des applications web populaires. 
-
  
-   - Protection contre les bots malveillants : ModSecurity peut aider à bloquer le trafic de bots malveillants qui tentent de scruter ou de perturber votre site web. 
-
+   - Protection contre les bots malveillants : pour aider à bloquer le trafic de bots malveillants qui tentent de scruter ou de perturber votre site web. 
  
     - Conformité aux normes de sécurité : L'ajout de ModSecurity peut contribuer à la conformité aux normes de sécurité telles que PCI DSS, HIPAA, et d'autres, en renforçant la sécurité de votre application web.
+
+
     
-    Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project : : Core Rules Set ou CRS 3.3.5) ou personnalisées en fonction des besoins de notre application :
+    Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project : : Core Rules Set ou CRS 3.3.5) ou personnalisées en fonction des besoins de notre application, fichiers concernés :
 
 
-#### main.conf 
+#### /etc/nginx/modsec/main.conf : 
 Ce fichier donne les paths des CRS 3.3.5 et du fichier principal de modSecurity.
-Le chemin de ce fichier apparait également dans le fichier nginx.conf   
+Le chemin de ce fichier apparait également dans le fichier nginx.conf
 
-#### modsecurity.conf 
-Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
+Include /etc/nginx/modsec/modsecurity.conf 
+Include /etc/nginx/modsec/coreruleset-3.3.5/crs-setup.conf 
+Include /etc/nginx/modsec/coreruleset-3.3.5/rules/*.conf 
 
-#### unicode.mapping 
+
+#### modsecurity.conf
+/etc/nginx/modsec/modsecurity.conf : Fichier de configuration principale de ModSecurity qui contient diverses directives qui définissent le comportement du pare-feu d'application web. 
+ 
+# -- Rule engine initialization --------------------------------------------- 
+SecRuleEngine On 
+# -- Request body handling --------------------------------------------------- 
+SecRequestBodyAccess On 
+# The location where ModSecurity stores temporary files 
+SecTmpDir /tmp/ 
+# The location where ModSecurity will keep its persistent data. 
+SecDataDir /tmp/ 
+# Maximum request body size we will accept for buffering. 
+SecRequestBodyLimit 13107200 
+SecRequestBodyNoFilesLimit 131072 
+ETC  
+
+
+#### /etc/nginx/modsec/unicode.mapping  
 Le fichier Unicode Mapping est utilisé pour spécifier comment ModSecurity doit traiter les caractères Unicode dans les requêtes HTTP. Ce fichier de mappage est essentiel pour prendre en charge des encodages de caractères étendus et internationaux, garantissant que ModSecurity puisse détecter et bloquer les attaques qui utilisent ces encodages pour contourner les règles de sécurité. 
+
 
 #### ngx_http_modsecurity_module.so 
 Ce module Nginx permet d'intégrer ModSecurity dans le serveur web Nginx. Ce module étend les fonctionnalités de Nginx pour inclure des règles de sécurité avancées et la détection des attaques web. Il est souvent utilisé pour renforcer la sécurité des applications web hébergées sur des serveurs Nginx. 
 
-### 
+#### Exemple de règle ModSecurity (custom) pour bloquer les tentatives d'injection SQL dans les paramètres d'URL :
+SecRule ARGS "@rce" "id:1001,phase:2,deny,status:403,msg:'SQL Injection Attempt'"
+
+Cette règle, lorsqu'elle est activée, surveille les paramètres d'URL (ARGS) à la recherche de la chaîne "@rce" (qui pourrait indiquer une tentative d'exécution de commande à distance) et, si elle la détecte, elle bloque la requête avec un code d'état HTTP 403 (Interdit) et enregistre un message dans les journaux.
+
+
+
+## FAIL2BAN (WORK IN PROGRESS)
+Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à partir de seuil que l'on définit en amont.
+
+## PENTESTING :
+
+ 
+
+### Utilisation de OWASP ZAP 2.13.0 pour tester l’exposition de notre Microservice après lui avoir donné une adresse IP sur le WAN via Ngrok.    https://www.zaproxy.org/  
+
+ 
+
+### Utilisation de https://securityheaders.com/ pour tester le filtrage des requêtes. 
+
+ 
+
+### Utilisation de NMAP pour scanner les ports de notre serveur Nginx.
 
 
 
