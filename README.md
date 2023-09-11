@@ -175,7 +175,7 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 -Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
 
-_Vérifier l’utilisation de méthode de requête HTTP et retourner une réponse 405 (Méthode non autorisée) si elle n'est pas GET, HEAD ou POST. 
+-Vérifier l’utilisation de méthode de requête HTTP et retourner une réponse 405 (Méthode non autorisée) si elle n'est pas GET, HEAD ou POST. 
 
 -Configurer la gestion de la taille du corps de la requête, des délais et des délais de réponse. 
 
