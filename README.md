@@ -201,10 +201,10 @@ Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de
 
 -Directives SSL pour améliorer la sécurité (optionnel mais recommandé)
 
-- Limitation du nombre de requête sur un temps donné :
-                                                      limit_req: Cela applique la limite définie précédemment dans la zone "one" dans le bloc LOCATION
-                                                      burst: Cela spécifie le nombre de requêtes autorisées en rafale.
-                                                      nodelay: Cela signifie que les requêtes en excès seront mises en file d'attente plutôt que rejetées immédiatement.
+- Limitation du nombre de requêtse sur un temps donné  avec comme OPTIONS :
+( limit_req: Cela applique la limite définie précédemment dans la zone "one" dans le bloc LOCATION)
+(burst: Cela spécifie le nombre de requêtes autorisées en rafale)
+(nodelay: Cela signifie que les requêtes en excès seront mises en file d'attente plutôt que rejetées immédiatement).
 
 -Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
 
@@ -219,13 +219,18 @@ Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de
 
 ### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
 
-ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques, y compris les injections SQL, les attaques par script entre sites (XSS), les tentatives d'exploitation de vulnérabilités et bien plus encore.
+ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques.
+
+(injections SQL, attaques par script entre sites XSS lorsque des données non fiables ou malveillantes sont incorporées dans le contenu d'une page web et exécutées du côté du client, généralement dans le navigateur de l'utilisateur / les tentatives d'exploitation de vulnérabilités / ...)
+
+
+FONCTIONNALITES AVANCEES:
 
     - Protection avancée contre les attaques : Utilisation des règles de sécurité spécifiques pour identifier et bloquer les tentatives d'attaques web, offrant ainsi une couche de protection supplémentaire pour vos applications web. 
 
      - Détection en temps réel : Surveillance du trafic web entrant en temps réel et peut réagir rapidement aux menaces potentielles, ce qui permet de détecter et de bloquer les attaques dès qu'elles se produisent. 
- 
-    - Personnalisable : Possibilité de personnaliser les règles ModSecurity pour répondre aux besoins spécifiques de votre application web et de votre environnement. 
+
+     - Personnalisable : Possibilité de personnaliser les règles ModSecurity pour répondre aux besoins spécifiques de votre application web et de votre environnement. 
  
     - Audit et journalisation : ModSecurity génère des journaux détaillés des activités, ce qui facilite la détection et la résolution des incidents de sécurité. 
  
