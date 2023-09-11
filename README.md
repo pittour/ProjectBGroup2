@@ -94,6 +94,8 @@ Le Dockerfile permet de construire l'image Docker du micro_service. Voici les pr
 - Mis en place des fichiers WAF.
 - Configuration de pare feu UFW
 
+
+
 ### UFW (Uncomplicated Firewall)
 
 Outil de gestion de pare-feu pour les systèmes Linux, y compris Debian. Il simplifie la configuration et la gestion des règles de pare-feu, ce qui le rend adapté à une utilisation sur des serveurs Debian. 
@@ -123,27 +125,46 @@ INCONVENIENTS:
 
     Performance : Bien qu'UFW n'ait généralement pas un impact significatif sur les performances, l'ajout de règles de pare-feu complexes peut potentiellement entraîner une surcharge, surtout sur des systèmes à haute charge. 
 
-    - Possibilité de blocage accidentel : En raison de sa simplicité, il est possible de configurer UFW de manière incorrecte et de bloquer accidentellement des connexions réseau. Il est essentiel de tester soigneusement vos règles avant de les appliquer en production. 
+    - Possibilité de blocage accidentel : En raison de sa simplicité, il est possible de configurer UFW de manière incorrecte et de bloquer accidentellement des connexions réseau.
 
+      
  
 ![My Image](/images/UFWsetup.png)
 
 
-Tout ce qui n'est pas déclaré est bloqué par défaut :
+
+ Tout ce qui n'est pas déclaré est bloqué par défaut :
 
 -Installation du package ufw 
 -Autorisation des port 443, 80 et 8000 pour le protocole TCP 
 -Blocage de toutes les requêtes entrantes sur les autres ports (profil default) 
 -Autorisation des requêtes en sortie (pour les ports autorisés) 
--Possibilité de suivre les logs et de paramétrer en medium les logs (par défaut en low et stocké dans /var/log/ufw.log) 
+-Possibilité de suivre les logs et de paramétrer en medium les logs (par défaut en low et stocké dans /var/log/ufw.log)
 
 
-### Nginx
+ Objectif : Protéger notre serveur contre les attaques réseau telles que :
+
+- Attaques DDoS (Distributed Denial of Service) : En n'autorisant que le trafic TCP sur ces ports, vous pouvez limiter la bande passante disponible pour les attaques DDoS qui tentent de submerger votre serveur avec un trafic illégitime. Cela peut aider à atténuer l'impact de ces attaques en les filtrant.
+
+- Attaques de reconnaissance : Les pirates informatiques effectuent souvent des scans de ports pour identifier les services en cours d'exécution sur un serveur. En n'autorisant que le TCP sur les ports 80 et 443, vous réduisez la surface d'attaque en limitant les services accessibles depuis l'extérieur.
+
+- Attaques par force brute : Les attaques par force brute tentent de deviner des mots de passe en essayant différentes combinaisons. En autorisant uniquement le trafic TCP sur les ports HTTP (80) et HTTPS (443), vous pouvez réduire la surface d'attaque, car seuls les services Web sont accessibles depuis l'extérieur.
+
+- Attaques d'injection SQL : En limitant l'accès aux ports HTTP et HTTPS, vous réduisez la possibilité pour les attaquants d'exploiter des vulnérabilités de sécurité telles que les injections SQL via des formulaires Web. Cependant, cela ne protège pas complètement contre de telles attaques, car elles peuvent encore être lancées via le trafic HTTP autorisé.
+
+- Attaques de vol de données : En restreignant l'accès aux ports HTTP et HTTPS, vous réduisez le risque d'accès non autorisé aux données sensibles stockées sur votre serveur Web. Cela peut contribuer à la protection de données sensibles, comme les informations de paiement sur un site de commerce électronique.
+
+
+ 
+
+
+### SERVICE NGINX
 
 L’objectif est de paramétrer le service Nginx au plus près des besoins de notre micro-service pour garantir la confidentialité, l'intégrité et la disponibilité des données et des fonctionnalités que le microservice expose et pour le protéger contre : des injections SQL, des injections de script, des attaques à force brute, ... 
 
 
 FONCTIONNALITES : 
+
 
 Serveur web statique : Nginx peut être utilisé pour servir des fichiers HTML, CSS, JavaScript et d'autres fichiers statiques, ce qui en fait une excellente option pour l'hébergement de sites web. 
 
@@ -163,7 +184,8 @@ Gestion des connexions : Nginx peut gérer efficacement un grand nombre de conne
 
 #### CONFIGURATION DU FICHIER Nginx.conf
 
-Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des en tete permettant la mies en place de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
+
+Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des en-tete permettant la mise en place de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
 
 - Gestion des ports https 443 et http 80 
 
@@ -177,7 +199,12 @@ Il permet le parametrage de notre reverse proxy en lien avec Gunicorn et la secu
 
 -Intégrer la mise en place des certificats SLL 
 
--Directives SSL pour améliorer la sécurité (optionnel mais recommandé) 
+-Directives SSL pour améliorer la sécurité (optionnel mais recommandé)
+
+- Limitation du nombre de requête sur un temps donné :
+                                                      limit_req: Cela applique la limite définie précédemment dans la zone "one" dans le bloc LOCATION
+                                                      burst: Cela spécifie le nombre de requêtes autorisées en rafale.
+                                                      nodelay: Cela signifie que les requêtes en excès seront mises en file d'attente plutôt que rejetées immédiatement.
 
 -Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
 
@@ -208,12 +235,13 @@ ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider �
  
     - Conformité aux normes de sécurité : L'ajout de ModSecurity peut contribuer à la conformité aux normes de sécurité telles que PCI DSS, HIPAA, et d'autres, en renforçant la sécurité de votre application web.
 
-    
-PARAMETRAGES DES FICHIERS:
-
 
     
-    Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project : : Core Rules Set ou CRS 3.3.5) ou personnalisées en fonction des besoins de notre application, fichiers concernés :
+PARAMETRAGES DES FICHIERS :
+
+    
+Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project :Core Rules Set ou CRS 3.3.5)
+ou personnalisées en fonction des besoins de notre application, fichiers concernés :
 
 ### /etc/nginx/nginx.conf :
 
@@ -310,17 +338,38 @@ Les rapports de test de charge et de securité sont ensuite disponible dans un o
 
 ### Monitoring 
 
-#### Prometheus 
+#### Prometheus
+
+Système open-source de surveillance et d'alerte conçu pour collecter, stocker et analyser des métriques sur les systèmes informatiques, ici notre notre serveur gunicorn sur le port 9000
+
 Prometheus se connecte aux metriques du micro service via le fichier prometheus.yml et permet de configurer des alertes, grace au fichier first_rules.yml.
 
-#### Grafana
-Grafana se connecte à prometheus et permet de crée des dashboards à partir des metriques recuperées 
+Il est principalement utilisé pour surveiller la santé et les performances des applications et des infrastructures :
+- Collecte des métriques activement en interrogeant notre serveur à intervalles réguliers. Ces cibles exposent leurs métriques via un point de terminaison HTTP appelé "endpoint 
+- Stockage des métriques dans une base de données temps réel appelée "Time-Series Database".
+- Possibilité de définir des règles d'alerte basées sur des métriques.
+
+#### Grafana (en binôme avec Prometheus)
+
+Grafana se connecte à prometheus et permet de crére des dashboards à partir des metriques recuperées.
+
+- Visualisation et Tableaux de bord : Le rôle principal de Grafana est de permettre aux utilisateurs de créer des tableaux de bord personnalisés pour visualiser les données provenant de différentes sources, y compris Prometheus.
+Grafana offre une interface utilisateur intuitive pour créer des graphiques, des jauges, des tableaux de bord, et plus encore. Les utilisateurs peuvent personnaliser ces tableaux de bord pour afficher les métriques spécifiques qui les intéressent.
+
+- Interrogation des données : Grafana permet aux utilisateurs d'interroger les données stockées dans Prometheus à l'aide de son propre langage de requête.
+Vous pouvez créer des requêtes pour extraire des métriques spécifiques, appliquer des agrégations, filtrer les données et afficher les résultats dans des graphiques interactifs.
+
+- Alerting : Grafana offre des fonctionnalités d'alerte qui permettent aux utilisateurs de définir des règles d'alerte basées sur les données Prometheus.
+Lorsque les conditions spécifiées dans les règles d'alerte sont remplies, Grafana peut déclencher des alertes qui sont envoyées par e-mail, Slack, ou d'autres canaux de notification.
 
 #### Alert manager 
+
 Envoie les alertes par Email
 
 
+
 ### Working progress 
+
 - Utilisation de OWASP ZAP 2.13.0 pour detecter les failles de securité.  https://www.zaproxy.org/
 
 - Utilisation du Header Nginx https://securityheaders.com/ pour tester le filtrage des requêtes.
@@ -330,8 +379,8 @@ Envoie les alertes par Email
 - Utilisation de Fail2ban : Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à  
   partir de seuil que l'on définit en amont.
 
-- Dans le fichier Nginx.conf : configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
- proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off;
+- Optimisation du fichier Nginx.conf :configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
+ proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off
 
 - Interface graphique
   
@@ -341,11 +390,18 @@ Envoie les alertes par Email
 
 - Radon afin d'analyser la complexité du code et les possibilité de refactorisation
 
+
+
   ### Difficultés rencontrées
+  
   - Répartition des tâches au départ lié à la visibilité sur le projet
+  
   - Développement du micro-service
+  
   - Déploiement automatique de Drupal qui nécessite Drush (Drupal Shell)
+  
   - Tentative de développement d'une interface graphique
+  
   - Durée du projet : durée réduite pour la mise en place d'un tel projet. Beaucoup de temps passé sur le développement et moins sur la partie devops.
 
 
