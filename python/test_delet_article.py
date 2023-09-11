@@ -40,7 +40,9 @@ class TestIntegrationSupprimerArticle(unittest.TestCase):
                 "password": "admin"
             }
             # Supprimez l'article
-            response = self.app.delete(f'/delete_article/{article_id}', json=auth)
+            response = self.app.delete(
+                f'/delete_article/{article_id}', json=auth
+            )
             self.assertEqual(response.status_code, 200)
 
             articles_apres_suppression = Article.query.all()
