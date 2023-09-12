@@ -64,7 +64,7 @@ nous utilison une bas de donnée SQLITE gerée par SQLALCHEMY afin d'enregistrer
 - Flask_limiteur limite le nombre de requete effectuer par un utilisateur sur une period de temps donnée.
 
 #### view.py 
-Il defini les endpoints de notre API Flask :
+Il defini les endpoints de notre API Flask.
 - /get_articles : permet de recuperer la liste des articles depuis drupal.
 - /add_article : permet d'ajouter un nouvel article à drupal.
 - /delet_article/<ID> : permet de suprimer un article.
