@@ -217,7 +217,7 @@ Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de
 
 
 
-### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
+### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP (Open Web Application Security Project, désigne une organisation à but non lucratif. Sa mission principale consiste à proposer des solutions de sécurité pour l'utilisation d'applications web.)
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques.
 
