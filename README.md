@@ -59,9 +59,9 @@ ce dossier contient le micro service flask, qui effectue des operations CRUD sur
 #### init.py 
 c'est le point d'entrée de l'application.
 nous utilison une bas de donnée SQLITE gerée par SQLALCHEMY afin d'enregistrer les operation effectuer via le micro service.
-Flask_cors nous permet de definir les serveurs pouvant se connecter à notre micro_service.
-Flask_caching avec Redis nous permet de mettre en cache les resultat d'une requete.
-Flask_limiteur limite le nombre de requete effectuer par un utilisateur sur une period de temps donnée.
+- Flask_cors nous permet de definir les serveurs pouvant se connecter à notre micro_service.
+- Flask_caching avec Redis nous permet de mettre en cache les resultat d'une requete.
+- Flask_limiteur limite le nombre de requete effectuer par un utilisateur sur une period de temps donnée.
 
 #### view.py 
 Il defini les endpoints de notre API Flask :
