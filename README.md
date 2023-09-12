@@ -97,7 +97,7 @@ Le Dockerfile permet de construire l'image Docker du micro_service. Voici les pr
 
 
 
-### UFW (Uncomplicated Firewall)
+### UFW (ou Uncomplicated Firewall)
 
 Outil de gestion de pare-feu pour les systèmes Linux, y compris Debian. Il simplifie la configuration et la gestion des règles de pare-feu, ce qui le rend adapté à une utilisation sur des serveurs Debian. 
  
@@ -186,41 +186,42 @@ Gestion des connexions : Nginx peut gérer efficacement un grand nombre de conne
 #### CONFIGURATION DU FICHIER NGINX.CONF
 
 
-Paramétrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des règles d'en-tete permettant la mise en place de politique de securité. Il permet de limiter également le nombre de requetes pour evité une surcharge du  serveur :
+Paramétrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des règles d'en-tete permettant la mise en place de politique de securité.
+Il permet de limiter également le nombre de requetes pour evité une surcharge du  serveur :
 
 - Gestion des ports https 443 et http 80 
 
--Redirection de toutes les demandes HTTP vers HTTPS en utilisant une réponse de redirection 301. 
+- Redirection de toutes les demandes HTTP vers HTTPS en utilisant une réponse de redirection 301. 
 
--Reverse proxy pour gérer les requêtes HTTP vers le micro-service Flask et Drupal pour cacher notre infrastructure et améliorer la sécurité, la gestion des connexions et la flexibilité de notre infrastructure. 
+- Reverse proxy pour gérer les requêtes HTTP vers le micro-service Flask et Drupal pour cacher notre infrastructure et améliorer la sécurité, la gestion des connexions et la flexibilité de notre infrastructure. 
 
--Configurer une zone de limitation de fréquence pour contrôler le nombre de requêtes par seconde que les adresses IP 
+- Configurer une zone de limitation de fréquence pour contrôler le nombre de requêtes par seconde que les adresses IP 
 
--Configurer des logs 
+- Configurer des logs 
 
--Intégrer la mise en place des certificats SLL 
+- Intégrer la mise en place des certificats SLL 
 
--Directives SSL pour améliorer la sécurité (optionnel mais recommandé)
+- Inclure des Directives SSL pour améliorer la sécurité (optionnel mais recommandé)
 
 - Limitation du nombre de requêtse sur un temps donné  avec comme OPTIONS :
 ( limit_req: Cela applique la limite définie précédemment dans la zone "one" dans le bloc LOCATION)
 (burst: Cela spécifie le nombre de requêtes autorisées en rafale)
 (nodelay: Cela signifie que les requêtes en excès seront mises en file d'attente plutôt que rejetées immédiatement).
 
--Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
+- Ajouter des en-têtes de sécurité pour renforcer la sécurité du serveur, y compris la politique de sécurité du contenu, la politique de transport strict, etc. 
 
--Vérifier l’utilisation de méthode de requête HTTP et retourner une réponse 405 (Méthode non autorisée) si elle n'est pas GET, HEAD ou POST. 
+- Vérifier l’utilisation de méthode de requête HTTP et retourner une réponse 405 (Méthode non autorisée) si elle n'est pas GET, HEAD ou POST. 
 
--Configurer la gestion de la taille du corps de la requête, des délais et des délais de réponse. 
+- Configurer la gestion de la taille du corps de la requête, des délais et des délais de réponse. 
 
--Configuration de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
+- Configurer de la compression Gzip pour économiser la bande passante en compressant les données envoyées au client plus de charge pour le serveur mais requêtes plus rapides 
   
 
 
 
-### WEB APPLICATION A FIREWALL OU WAF :
-### Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
-### (Open Web Application Security Project / Solutions de sécurité pour l'utilisation d'applications web)
+### WEB APPLICATION FIREWALL OU WAF :
+### Intégration du module ModSecurity avec les règles Core Rules Set (ou CRS) OSWAP
+### (L'Open Web Application Security Project propose des solutions de sécurité pour l'utilisation d'applications web)
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques.
 
@@ -248,7 +249,7 @@ FONCTIONNALITES AVANCEES:
 ![My Image](/images/nginx_modsecurity.png)
 
     
-#### PARAMETRAGES DES FICHIERS :
+#### PARAMETRAGE DES FICHIERS :
     
 Pour utiliser ModSecurity avec Nginx, nous devons installer le module ModSecurity pour Nginx et télécharger les règles ModSecurity à partir de sources telles que OWASP (Open Web Application Security Project :Core Rules Set ou CRS 3.3.5)
 ou personnalisées en fonction des besoins de notre application, fichiers concernés :
@@ -310,8 +311,9 @@ Cette règle, lorsqu'elle est activée, surveille les paramètres d'URL (ARGS) �
 
 
 
-### Jenkins 
-#### Dockerfiles
+### JENKINS
+
+#### DOCKERFILES
 
 Les Dockerfiles permettent de construire les images Docker de jenkins, une pour le noeud controleur et une pour l'agent jenkins qui vas excuter le pipline, voici les principales étapes effectuées dans ces fichiers :
 
@@ -342,7 +344,8 @@ Configurer le node de l'agent jenkins depuis l'interface administrer jenkins.
 
 
 
-### La pipeline 
+### LA PIPELINE 
+
 elle se trouve dans le jenkinsfile qui est lancer depuis jenkins.
 elle : 
 - verifie les bonnes pratiques de code 
@@ -359,7 +362,7 @@ Les rapports de test de charge et de securité sont ensuite disponible dans un o
 
 
 
-### MONITORING 
+### LE MONITORING 
 
 #### PROMETHEUS
 
@@ -391,7 +394,7 @@ Lorsque les conditions spécifiées dans les règles d'alerte sont remplies, Gra
 
 
 
-#### Alertmanager 
+#### ALERTMANAGER
 
 Envoie les alertes par Email
 
