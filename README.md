@@ -430,10 +430,7 @@ Exemple de setup de redirection d'alerte sur un email
 
  - Approfondir les règles applicables dans le ModSecurity de Nginx, exemples:
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SecRule ARGS|ARGS_NAMES|REQUEST_URI "@rx ((\%27)|(\'))\s*?(and|or)\s*?[^\n]*?\%3d|select(\s+?[\w\d]+?[\,\)])|insert(\s+?into\s+?[\w\d]+?)|delete(\s+?from\s+?[\w\d]+?)|union(\s+?[\w\d]+?[\,\)])" \
-"id:1001,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'SQL Injection Attack'"
 Cross-Site Scripting (XSS) Protection:
-
 Protect against XSS attacks by using rules that detect and block malicious script injection attempts.
 
 SecRule REQUEST_URI|ARGS|ARGS_NAMES "@contains <script>" \
@@ -457,12 +454,6 @@ Implement rate limiting rules to mitigate against brute force and DDoS attacks.
 SecRule IP:bf_block "@gt 0" \
 "id:1005,phase:1,deny,status:429,msg:'Rate Limit Exceeded'"
 File Upload Restrictions:
-
-Control and restrict file uploads to prevent execution of malicious files.
-
-SecRule REQUEST_FILENAME|ARGS|ARGS_NAMES "@rx \.php$" \
-"id:1006,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'PHP File Uploads Not Allowed'"
-Generic Anomaly Detection:
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
