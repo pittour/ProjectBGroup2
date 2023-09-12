@@ -420,8 +420,7 @@ Exemple de setup de redirection d'alerte sur un email
 - Utilisation de NMAP pour scanner les ports de notre serveur Nginx.
 
  
-- Utilisation de Fail2ban : Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à  
-  partir de seuil que l'on définit en amont.
+- Utilisation de Fail2ban : Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à partir de seuil que l'on définit en amont.
 
 
 - Optimisation du fichier Nginx.conf :configurer une zone mémoire de cache pour réduire la charge du serveur :
