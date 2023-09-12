@@ -183,7 +183,7 @@ Gestion des connexions : Nginx peut gérer efficacement un grand nombre de conne
 
 
 
-#### CONFIGURATION DU FICHIER Nginx.conf
+#### CONFIGURATION DU FICHIER NGINX.CONF
 
 
 Paramétrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des règles d'en-tete permettant la mise en place de politique de securité. Il permet de limiter également le nombre de requetes pour evité une surcharge du  serveur :
@@ -218,8 +218,9 @@ Paramétrage de notre reverse proxy en lien avec Gunicorn et la securisation de 
 
 
 
-### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
-### (Open Web Application Security Project / Organisation à but non lucratif / Solutions de sécurité pour l'utilisation d'applications web)
+### WEB APPLICATION A FIREWALL OU WAF :
+### Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
+### (Open Web Application Security Project / Solutions de sécurité pour l'utilisation d'applications web)
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques.
 
