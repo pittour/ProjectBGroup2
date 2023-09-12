@@ -96,6 +96,7 @@ Le Dockerfile permet de construire l'image Docker du micro_service. Voici les pr
 
 
 
+
 ### UFW (Uncomplicated Firewall)
 
 Outil de gestion de pare-feu pour les systèmes Linux, y compris Debian. Il simplifie la configuration et la gestion des règles de pare-feu, ce qui le rend adapté à une utilisation sur des serveurs Debian. 
@@ -185,7 +186,7 @@ Gestion des connexions : Nginx peut gérer efficacement un grand nombre de conne
 #### CONFIGURATION DU FICHIER Nginx.conf
 
 
-Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des en-tete permettant la mise en place de politique de securité. Il limite egalement le nombre de requetes pour evité une surcharge.
+Paramétrage de notre reverse proxy en lien avec Gunicorn et la securisation de notre serveur via des règles d'en-tete permettant la mise en place de politique de securité. Il permet de limiter également le nombre de requetes pour evité une surcharge du  serveur :
 
 - Gestion des ports https 443 et http 80 
 
@@ -217,7 +218,8 @@ Paramétrage  de notre reverse proxy en lien avec Gunicorn et la securisation de
 
 
 
-### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP (Open Web Application Security Project, désigne une organisation à but non lucratif. Sa mission principale consiste à proposer des solutions de sécurité pour l'utilisation d'applications web.)
+### Web application Firewall ou WAF : Intégration du module ModSecurity avec les règles Core Rules Set OSWAP
+### (Open Web Application Security Project / Organisation à but non lucratif /Mission principale consiste à proposer des solutions de sécurité pour l'utilisation d'applications web)
 
 ModSecurity est un pare-feu d'application web (WAF) open source qui peut aider à protéger votre application web contre une variété d'attaques.
 
@@ -337,6 +339,8 @@ Crée les credentials suivant :
 
 Configurer le node de l'agent jenkins depuis l'interface administrer jenkins.
 
+
+
 ### La pipeline 
 elle se trouve dans le jenkinsfile qui est lancer depuis jenkins.
 elle : 
@@ -350,9 +354,13 @@ elle :
 
 Les rapports de test de charge et de securité sont ensuite disponible dans un onglet sur jenkins.
 
-### Monitoring 
 
-#### Prometheus
+
+
+
+### MONITORING 
+
+#### PROMETHEUS
 
 Système open-source de surveillance et d'alerte conçu pour collecter, stocker et analyser des métriques sur les systèmes informatiques, ici notre notre serveur gunicorn sur le port 9000
 
@@ -365,7 +373,8 @@ Il est principalement utilisé pour surveiller la santé et les performances des
 
 
 
-#### Grafana (en binôme avec Prometheus)
+
+#### GRAFANA (EN BINOME AVEC PROMETHEUS)
 
 Grafana se connecte à prometheus et permet de créer des dashboards à partir des metriques recuperées.
 
@@ -377,6 +386,7 @@ On peutcréer des requêtes pour extraire des métriques spécifiques, appliquer
 
 - Alerting : Grafana offre des fonctionnalités d'alerte qui permettent aux utilisateurs de définir des règles d'alerte basées sur les données Prometheus.
 Lorsque les conditions spécifiées dans les règles d'alerte sont remplies, Grafana peut déclencher des alertes qui sont envoyées par e-mail, Slack, ou d'autres canaux de notification.
+
 
 
 
@@ -392,41 +402,91 @@ Exemple de setup de redirection d'alerte sur un email
 
 
 
-### Working in progress 
+
+### WORK IN PROGRESS
+
 
 - Utilisation de OWASP ZAP 2.13.0 pour detecter les failles de securité.  https://www.zaproxy.org/
 
+![My Image](/images/OWASP_ZAP.png)
+
 - Utilisation du Header Nginx https://securityheaders.com/ pour tester le filtrage des requêtes.
+
  
 - Utilisation de NMAP pour scanner les ports de notre serveur Nginx.
+
  
 - Utilisation de Fail2ban : Outil qui permet de faire un suivi des requêtes IP entrante FAILED arrivant sur notre serveur et de bannir les IP concernées à  
   partir de seuil que l'on définit en amont.
 
-- Optimisation du fichier Nginx.conf :configurer une zone mémoire de cache pour réduire la charge du serveur (WORK IN PROGRESS)
+
+- Optimisation du fichier Nginx.conf :configurer une zone mémoire de cache pour réduire la charge du serveur :
+  
  proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off
 
+ - Approfondir les règles applicables dans le ModSecurity de Nginx, exemples:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SecRule ARGS|ARGS_NAMES|REQUEST_URI "@rx ((\%27)|(\'))\s*?(and|or)\s*?[^\n]*?\%3d|select(\s+?[\w\d]+?[\,\)])|insert(\s+?into\s+?[\w\d]+?)|delete(\s+?from\s+?[\w\d]+?)|union(\s+?[\w\d]+?[\,\)])" \
+"id:1001,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'SQL Injection Attack'"
+Cross-Site Scripting (XSS) Protection:
+
+Protect against XSS attacks by using rules that detect and block malicious script injection attempts.
+
+SecRule REQUEST_URI|ARGS|ARGS_NAMES "@contains <script>" \
+"id:1002,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'XSS Attack Detected'"
+Path Traversal and Directory Enumeration Protection:
+
+Prevent attackers from accessing files and directories they shouldn't by blocking path traversal attempts.
+
+SecRule REQUEST_URI|ARGS|ARGS_NAMES "@rx \.\./" \
+"id:1003,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'Path Traversal Attempt'"
+HTTP Protocol Violations:
+
+Enforce adherence to HTTP protocol standards and prevent malicious requests.
+
+SecRule REQUEST_HEADERS:Host "@streq 1.2.3.4" \
+"id:1004,phase:1,t:none,t:lowercase,deny,status:400,msg:'Invalid Host Header'"
+Rate Limiting:
+
+Implement rate limiting rules to mitigate against brute force and DDoS attacks.
+
+SecRule IP:bf_block "@gt 0" \
+"id:1005,phase:1,deny,status:429,msg:'Rate Limit Exceeded'"
+File Upload Restrictions:
+
+Control and restrict file uploads to prevent execution of malicious files.
+
+SecRule REQUEST_FILENAME|ARGS|ARGS_NAMES "@rx \.php$" \
+"id:1006,phase:2,t:none,t:htmlEntityDecode,t:compressWhiteSpace,t:lowercase,deny,status:403,msg:'PHP File Uploads Not Allowed'"
+Generic Anomaly Detection:
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 - Interface graphique
+
   
 - load balancer
 
+
 - Outil de détection de mise à jour des conteneurs comme Watchtower
+
 
 - Radon afin d'analyser la complexité du code et les possibilité de refactorisation
 
 
 
-  ### Difficultés rencontrées
+### Difficultés rencontrées
   
-  - Répartition des tâches au départ lié à la visibilité sur le projet
+- Répartition des tâches au départ lié à la visibilité sur le projet
   
-  - Développement du micro-service
+- Développement du micro-service
   
-  - Déploiement automatique de Drupal qui nécessite Drush (Drupal Shell)
+- Déploiement automatique de Drupal qui nécessite Drush (Drupal Shell)
   
-  - Tentative de développement d'une interface graphique
+- Tentative de développement d'une interface graphique
   
-  - Durée du projet : durée réduite pour la mise en place d'un tel projet. Beaucoup de temps passé sur le développement et moins sur la partie devops.
+- Durée du projet : durée réduite pour la mise en place d'un tel projet. Beaucoup de temps passé sur le développement et moins sur la partie devops.
 
 
  
