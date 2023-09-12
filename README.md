@@ -65,9 +65,9 @@ nous utilison une bas de donnée SQLITE gerée par SQLALCHEMY afin d'enregistrer
 
 #### view.py 
 Il defini les endpoints de notre API Flask :
-/get_articles : permet de recuperer la liste des articles depuis drupal.
-/add_article : permet d'ajouter un nouvel article à drupal.
-/delet_article/<ID> : permet de suprimer un article.
+- /get_articles : permet de recuperer la liste des articles depuis drupal.
+- /add_article : permet d'ajouter un nouvel article à drupal.
+- /delet_article/<ID> : permet de suprimer un article.
 
 #### .env
 Le fichier .env contient les variables d'environnement nécessaires pour configurer le micro_service.
