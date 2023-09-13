@@ -1,12 +1,25 @@
 pipeline {
 
-    agent any
+    agent {
+        label 'agent1'
+    }
     environment {
         DRUPAL_ENV = credentials('drupal-env')
         PYTHON_ENV = credentials('python-env')
     }
 
     stages {
+
+        stage('Scanning the microservice code') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd python/
+                    trivy fs --scanners config --format template --template "@/home/jenkins/html.tpl" -o /home/jenkins/code-scan.html .
+                '''
+                echo "Microservice container scanned sucessfully"
+            }
+        }
 
         stage('Environment variables') {
             steps {
@@ -18,7 +31,7 @@ pipeline {
 
         stage('Monolith launch') {
             steps {
-                //  Lancement drupal
+                //  Lancement drupal.
                 sh '''
                     cd drupal/
                     docker compose up -d
@@ -29,7 +42,7 @@ pipeline {
 
         stage('Application tests') {
             steps {
-                timeout(7) {
+                timeout(10) {
                     waitUntil {
                         script {
                             try {
@@ -60,6 +73,28 @@ pipeline {
             }
         }
 
+        stage('Building') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd python/
+                    docker image build -t microservice .
+                '''
+                echo "Microservice built sucessfully"
+            }
+        }
+
+        stage('Scanning the microservice container') {
+            steps {
+                // Lancement de l'app
+                sh '''
+                    cd /home/jenkins
+                    trivy image --timeout 10m --format template --template "@html.tpl" -o image-scan.html microservice
+                '''
+                echo "Microservice container scanned sucessfully"
+            }
+        }
+
         stage('Deployment') {
             steps {
                 // Lancement de l'app
@@ -73,16 +108,55 @@ pipeline {
 
     }
     post {
-        always {
+        failure {
             // Faire http request pour le ms
-            timeout(5) {
+            sh '''
+                cd python/
+                docker compose down
+                cd ../drupal
+                docker compose down
+            '''
+            cleanWs()
+            git branch: 'last-stable', credentialsId: 'github_access', url: 'https://github.com/Sparkly74/ProjectBGroup2.git'
+            sh('cp $DRUPAL_ENV ./drupal/.env')
+            sh('cp $PYTHON_ENV ./python/.env')
+            sh '''
+                cd python/
+                docker image build -t microservice .
+                docker compose up -d
+                cd ../drupal
+                docker compose up -d
+            '''
+            echo "Rollbacked to the last stable version"
+        }
+
+        success {
+            publishHTML target : [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: '/home/jenkins',
+                reportFiles: 'code-scan.html, image-scan.html',
+                reportName: 'Security Scan',
+                reportTitles: 'Code scan, Docker image scan'
+            ]
+
+            withCredentials([gitUsernamePassword(credentialsId: 'github_access', gitToolName: 'Default')]) {
+                sh '''
+                    git push --force origin HEAD:last-stable
+                '''
+            }
+        }
+
+        always {
+            timeout(10) {
                     waitUntil {
                         script {
                             try {
                                 def response = httpRequest(
                                     httpMode: 'GET',
                                     ignoreSslErrors: true,
-                                    url: 'https://python-microservice-1/get_articles'
+                                    url: 'https://python-microservice-1/'
                                 )
                                 return (response.status == 200)
                             }
@@ -93,10 +167,10 @@ pipeline {
                     }
                 }
             sh '''
-                cd /var/jenkins_home/apache-jmeter-5.6.2/bin
-                /var/jenkins_home/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
+                cd /home/jenkins/apache-jmeter-5.6.2/bin
+                /home/jenkins/apache-jmeter-5.6.2/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t charge.jmx -l report.jtl
             '''
-            perfReport '/var/jenkins_home/apache-jmeter-5.6.2/bin/report.jtl'
+            perfReport '/home/jenkins/apache-jmeter-5.6.2/bin/report.jtl'
         }
     }
 }

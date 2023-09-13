@@ -8,6 +8,11 @@ from flask import Blueprint
 bp = Blueprint("app", __name__)
 
 
+@app.route('/', methods=['GET'])
+def home():
+    return "Welcome to our flask microservice"
+
+
 @app.route('/get_articles', methods=['GET'])
 @cache.cached()
 @limiter.limit("30 per hour")
@@ -15,8 +20,6 @@ def get_articles():
     product_data = fetch_articles()
     if not product_data:
         return jsonify({"error": "Failed to fetch articles from drupal"}), 500
-
-    return product_data
 
 
 # Échappez les données de sortie à l'aide de bleach
@@ -33,6 +36,8 @@ def add_article():
 
     title = request.json.get('title')
     content = request.json.get('content')
+    username = request.json.get('username')
+    password = request.json.get('password')
 
     # limites de caractères maximales
     max_title_length = 100
@@ -46,9 +51,9 @@ def add_article():
     if len(content) > max_content_length:
         content = content[:max_content_length]
 
-    if not title or not content:
+    if not title or not content or not username or not password:
         return jsonify({
-            "message": "Error : Title and/or Content not provided."
+            "message": "Title, Content, Username and/or Password not provided."
         }), 400
 
     # Échappez les données avant de les envoyer à Drupal
@@ -67,7 +72,7 @@ def add_article():
             }
         }
     }
-    response = create_article(json=data)
+    response = create_article(username, password, json=data)
 
     if response.status_code == 201:
         article = Article(
@@ -84,6 +89,9 @@ def add_article():
 @app.route('/delete_article/<article_id>', methods=['DELETE'])
 def supprimer_article(article_id):
 
+    username = request.json.get('username')
+    password = request.json.get('password')
+
     article = db.session.query(Article).filter_by(id=article_id).first()
 
     if article is None:
@@ -91,7 +99,7 @@ def supprimer_article(article_id):
 
     id = article.article_drupal_id
     # Envoi de la requête DELETE à l'API Drupal pour supprimer l'article
-    response = delete_article(id)
+    response = delete_article(id, username, password)
 
     # Si la suppression est réussie, renvoyer un message de succès
     if response.status_code == 204:

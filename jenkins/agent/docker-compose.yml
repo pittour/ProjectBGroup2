@@ -1,0 +1,38 @@
+---
+version: '3'
+services:
+  jenkins:
+    build:
+      context: ../controller
+      dockerfile: Dockerfile
+    container_name: jenkins-controller
+    ports:
+      - "9090:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins-data:/var/jenkins_home
+    networks:
+      - projetB
+
+  agent1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "22:22"
+    env_file:
+      - .env
+    networks:
+      - projetB
+
+networks:
+  projetB:
+    external: true
+
+volumes:
+  jenkins-data:
+    external: true
+    name: jenkins-data
